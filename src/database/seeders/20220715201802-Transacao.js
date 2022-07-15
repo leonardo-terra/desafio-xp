@@ -3,7 +3,7 @@
 module.exports = {
   up: async (queryInterface, Sequelize) =>
     queryInterface.bulkInsert(
-      'Transacao',
+      'Transactions',
       [
         {
           ativoId: 1,
@@ -35,5 +35,5 @@ module.exports = {
     ),
 
   down: async (queryInterface) =>
-    queryInterface.bulkDelete('Transacao', null, {}),
+    queryInterface.bulkDelete('Transactions', null, {}),
 };
