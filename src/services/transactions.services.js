@@ -14,8 +14,7 @@ const newPurchase = async ({ codCliente, codAtivo, qntDeAtivo }) => {
   };
   const isValid = await Utils.isPurchaseValid(codAtivo, qntDeAtivo);
   if (!isValid) throw new Error('Quantidade requerida indisponível.');
-  const result = await Transaction.create(transaction);
-  return result;
+  return await Transaction.create(transaction);
 };
 
 module.exports = {
