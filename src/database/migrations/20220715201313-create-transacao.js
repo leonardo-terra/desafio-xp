@@ -2,6 +2,11 @@
 module.exports = {
   async up(queryInterface, Sequelize) {
     await queryInterface.createTable('Transactions', {
+      transactionId: {
+        type: Sequelize.INTEGER,
+        primaryKey: true,
+        autoIncrement: true,
+      },
       ativoId: {
         type: Sequelize.INTEGER,
         field: 'ativoId',
@@ -9,9 +14,9 @@ module.exports = {
           model: 'Ativos',
           key: 'ativoId',
         },
+        allowNull: false,
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
-        primaryKey: true,
       },
       qntMovimentada: {
         type: Sequelize.INTEGER,
@@ -26,7 +31,7 @@ module.exports = {
         },
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
-        primaryKey: true,
+        allowNull: false,
       },
     });
   },

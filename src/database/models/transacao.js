@@ -2,6 +2,12 @@ const TransactionSchema = (sequelize, DataTypes) => {
   const Transaction = sequelize.define(
     'Transaction',
     {
+      transactionId: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        primaryKey: true,
+        autoIncrement: true,
+      },
       userId: {
         type: DataTypes.INTEGER,
         references: {
