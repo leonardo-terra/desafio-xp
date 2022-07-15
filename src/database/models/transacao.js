@@ -1,6 +1,6 @@
-const TransacaoSchema = (sequelize, DataTypes) => {
-  const Transacao = sequelize.define(
-    'Transacao',
+const TransactionSchema = (sequelize, DataTypes) => {
+  const Transaction = sequelize.define(
+    'Transaction',
     {
       userId: {
         type: DataTypes.INTEGER,
@@ -21,25 +21,23 @@ const TransacaoSchema = (sequelize, DataTypes) => {
     },
     { timestamps: false },
   );
-  Ativo.belongsToMany(User, { through: 'Transacao' });
-  User.belongsToMany(Ativo, { through: 'Transacao' });
 
-  return Transacao;
-};
-
-module.exports = TransacaoSchema;
-
-/* Transacao.associate = (models) => {
+  Transaction.associate = (models) => {
     models.Ativo.belongsToMany(models.User, {
       as: 'ativo',
-      through: 'Transacao',
+      through: 'Transaction',
       foreignKey: 'ativoId',
       otherKey: 'userId',
     });
     models.User.belongsToMany(models.Ativo, {
       as: 'user',
-      through: 'Transacao',
+      through: 'Transaction',
       foreignKey: 'userId',
       otherKey: 'ativoId',
     });
-  }; */
+  };
+
+  return Transaction;
+};
+
+module.exports = TransactionSchema;
