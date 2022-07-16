@@ -33,10 +33,12 @@ const newPurchase = async ({ codCliente, codAtivo, qntdeAtivo }) => {
   return await Transaction.create(transactionObj);
 };
 
-const newSale = async ({ codCliente, codAtivo, qntdeAtivo }) => {};
+/* const newSale = async ({ codCliente, codAtivo, qntdeAtivo }) => {
+  return { message: 'oi' };
+}; */
 
 module.exports = {
   getAll,
   newPurchase,
-  newSale,
+  /*   newSale, */
 };

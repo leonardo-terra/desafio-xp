@@ -13,6 +13,7 @@ const port = process.env.PORT || 3001;
 // Routes
 app.get('/', transactionController.getAll);
 app.post('/purchase', transactionController.newPurchase);
+app.post('/sale', transactionController.newSale);
 
 app.use(Middlewares.errorHandler);
 app.listen(port, () => console.log(`Ouvindo na porta ${port}`));

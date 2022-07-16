@@ -15,4 +15,9 @@ const newPurchase = async (req, res) => {
   return res.status(200).send(responseObj);
 };
 
-module.exports = { getAll, newPurchase };
+const newSale = async (req, res) => {
+  const response = await transactionsServices.newSale(req.body);
+  return res.status(200).send(response);
+};
+
+module.exports = { getAll, newPurchase, newSale };
