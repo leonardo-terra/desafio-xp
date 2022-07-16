@@ -15,8 +15,14 @@ const TransactionSchema = (sequelize, DataTypes) => {
           key: 'userId',
         },
       },
-      qntMovimentada: { type: DataTypes.INTEGER, allowNull: false },
-
+      qntMovimentada: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+      },
+      preco: {
+        type: DataTypes.DECIMAL,
+        allowNull: false,
+      },
       ativoId: {
         type: DataTypes.INTEGER,
         references: {

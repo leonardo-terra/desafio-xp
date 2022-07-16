@@ -64,4 +64,9 @@ const executeTransaction = async (userId, requiredAmount, ativoId) => {
   );
 };
 
-module.exports = { isBalanceValid, hasEnoughAsset, executeTransaction };
+module.exports = {
+  isBalanceValid,
+  hasEnoughAsset,
+  executeTransaction,
+  transactionValues,
+};

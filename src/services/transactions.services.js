@@ -1,4 +1,5 @@
 const { Transaction } = require('../database/models');
+const { Ativo } = require('../database/models');
 const Utils = require('../utils');
 
 const getAll = async () => {
@@ -8,10 +9,13 @@ const getAll = async () => {
 
 // Saldo suficiente? > Existe estoque? > { [debita/credita] > transaciona }
 const newPurchase = async ({ codCliente, codAtivo, qntDeAtivo }) => {
+  const transactionValues = await Utils.transactionValues(codCliente, codAtivo);
+
   const transactionObj = {
     ativoId: codAtivo,
     userId: codCliente,
     qntMovimentada: qntDeAtivo,
+    preco: transactionValues.assetPrice,
   };
 
   const hasEnoughAsset = await Utils.hasEnoughAsset(codAtivo, qntDeAtivo);

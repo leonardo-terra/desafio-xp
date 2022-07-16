@@ -22,6 +22,10 @@ module.exports = {
         type: Sequelize.INTEGER,
         allowNull: false,
       },
+      preco: {
+        type: Sequelize.DECIMAL,
+        allowNull: false,
+      },
       userId: {
         type: Sequelize.INTEGER,
         field: 'userId',
