@@ -6,15 +6,27 @@ const getAll = async () => {
   return result;
 };
 
+// Saldo suficiente? > Existe estoque? > { [debita/credita] > transaciona }
 const newPurchase = async ({ codCliente, codAtivo, qntDeAtivo }) => {
-  const transaction = {
+  const transactionObj = {
     ativoId: codAtivo,
     userId: codCliente,
     qntMovimentada: qntDeAtivo,
   };
-  const isValid = await Utils.isPurchaseValid(codAtivo, qntDeAtivo);
-  if (!isValid) throw new Error('Quantidade requerida indisponível.');
-  return await Transaction.create(transaction);
+
+  const hasEnoughAsset = await Utils.hasEnoughAsset(codAtivo, qntDeAtivo);
+  if (!hasEnoughAsset) throw new Error('Quantidade requerida indisponível.');
+
+  const hasEnoughBalance = await Utils.isBalanceValid(
+    codCliente,
+    qntDeAtivo,
+    codAtivo,
+  );
+  if (!hasEnoughBalance) throw new Error('Saldo insuficiente');
+
+  await Utils.executeTransaction(codCliente, qntDeAtivo, codAtivo);
+
+  return await Transaction.create(transactionObj);
 };
 
 module.exports = {
