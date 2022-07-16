@@ -7,9 +7,12 @@ const getAll = async (req, res) => {
 
 const newPurchase = async (req, res) => {
   const purchase = await transactionsServices.newPurchase(req.body);
-  return res.status(200).send({
-    message: purchase,
-  });
+  const responseObj = {
+    codCliente: purchase.userId,
+    codAtivo: purchase.ativoId,
+    qtdeAtivo: purchase.qntMovimentada,
+  };
+  return res.status(200).send(responseObj);
 };
 
 module.exports = { getAll, newPurchase };
