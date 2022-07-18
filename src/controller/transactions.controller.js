@@ -17,6 +17,11 @@ const newPurchase = async (req, res) => {
 
 const newSale = async (req, res) => {
   const response = await transactionsServices.newSale(req.body);
+  const transactionObj = {
+    codAtivo: response.ativoId,
+    codAtivo: response.ativoId,
+    qntdeAtivo: response.qntMovimentada,
+  };
   return res.status(200).send(response);
 };
 

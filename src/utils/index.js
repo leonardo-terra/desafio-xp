@@ -1,10 +1,15 @@
 const { hasEnoughAsset } = require('./validatePurchase');
 const { isBalanceValid } = require('./validatePurchase');
-const { executeTransaction } = require('./validatePurchase');
+const { executePurchaseTransaction } = require('./validatePurchase');
 const { transactionValues } = require('./validatePurchase');
+const { clientAssetQnt } = require('./validateSale');
+const { executeSaleTransaction } = require('./validateSale');
+
 module.exports = {
   isBalanceValid,
   hasEnoughAsset,
-  executeTransaction,
+  executePurchaseTransaction,
   transactionValues,
+  clientAssetQnt,
+  executeSaleTransaction,
 };

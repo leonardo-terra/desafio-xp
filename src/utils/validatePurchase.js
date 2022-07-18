@@ -38,7 +38,7 @@ const hasEnoughAsset = async (ativoId, requiredAmount) => {
   return true;
 };
 
-const executeTransaction = async (userId, requiredAmount, ativoId) => {
+const executePurchaseTransaction = async (userId, requiredAmount, ativoId) => {
   const transactionInfo = await transactionValues(userId, ativoId);
 
   const newAssetQnt = transactionInfo.assetQnt - requiredAmount;
@@ -62,11 +62,17 @@ const executeTransaction = async (userId, requiredAmount, ativoId) => {
       where: { ativoId },
     },
   );
+  return {
+    ativoId,
+    userId,
+    qntMovimentada: requiredAmount,
+    preco: transactionInfo.assetPrice,
+  };
 };
 
 module.exports = {
   isBalanceValid,
   hasEnoughAsset,
-  executeTransaction,
+  executePurchaseTransaction,
   transactionValues,
 };
