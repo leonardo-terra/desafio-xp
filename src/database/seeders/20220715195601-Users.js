@@ -22,7 +22,7 @@ module.exports = {
         {
           email: 'julia@test.com',
           password: 'lllJEss6',
-          saldo: 423,
+          saldo: 423000,
           createdAt: Sequelize.literal('CURRENT_TIMESTAMP'),
           updatedAt: Sequelize.literal('CURRENT_TIMESTAMP'),
         },
