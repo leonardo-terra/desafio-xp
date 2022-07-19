@@ -19,6 +19,7 @@ app.post('/sale', transactionController.newSale);
 app.get('/client/:codCliente', investmentsController.getByClient);
 app.get('/asset/:codAtivo', investmentsController.getByAsset);
 app.post('/conta/:operator', clientsController.updateClientBalance);
+app.get('/conta/:codCliente', clientsController.getByID);
 
 app.use(Middlewares.errorHandler);
 app.listen(port, () => console.log(`Ouvindo na porta ${port}`));

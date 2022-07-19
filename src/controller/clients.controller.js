@@ -8,4 +8,10 @@ const updateClientBalance = async (req, res) => {
   return res.status(200).send(response);
 };
 
-module.exports = { updateClientBalance };
+const getByID = async (req, res) => {
+  const response = await clientService.getByID(req.params);
+  if (!response) throw new Error('Cliente não encontrado');
+  return res.status(200).send(response);
+};
+
+module.exports = { updateClientBalance, getByID };

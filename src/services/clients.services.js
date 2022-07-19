@@ -26,4 +26,13 @@ const updateClientBalance = async ({ codCliente, valor }, { operator }) => {
   };
 };
 
-module.exports = { updateClientBalance };
+const getByID = async ({ codCliente }) => {
+  const response = await User.findOne({
+    where: { userId: codCliente },
+    attributes: [['userId', 'codCliente'], 'saldo'],
+  });
+  console.log(codCliente);
+  return response;
+};
+
+module.exports = { updateClientBalance, getByID };
