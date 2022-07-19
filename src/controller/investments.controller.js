@@ -5,4 +5,12 @@ const getByClient = async (req, res) => {
   return res.status(200).send(response);
 };
 
-module.exports = { getByClient };
+const getByAsset = async (req, res) => {
+  const response = await investmentsServices.getByAsset(req.params);
+  if (!response.length) throw new Error('Código de ativo inválido.');
+  return res.status(200).send(response);
+};
+
+
+
+module.exports = { getByClient, getByAsset };

@@ -26,28 +26,23 @@ const getByClient = async ({ codCliente }) => {
     preco: el.dataValues.preco,
   }));
 
-  const merged = transactionArr.map((transaction) => ({
+  const mergedArr = transactionArr.map((transaction) => ({
     ...transaction,
     price: priceArr.find(({ ativoId }) => transaction.codAtivo === ativoId)
       .preco,
   }));
 
-  const mergeById = (a1, a2) =>
-    a1.map((itm) => ({
-      ...a2.find((item) => item.ativoId === itm.ativoId && item),
-      ...itm,
-    }));
-
-  const teste = mergeById(priceArr, transactionArr);
-
-  /*   const responseObj = teste.map((el) => ({
-    codCliente: el.dataValues.userId || 0,
-    codAtivo: el.dataValues.ativoId || 0,
-    qntdeAtivo: el.dataValues.qntMovimentada || 0,
-    valor: el.preco || 0,
-  })); */
-  console.log(merged);
-  return merged;
+  return mergedArr;
 };
 
-module.exports = { getByClient };
+const getByAsset = async ({ codAtivo }) =>
+  Ativo.findAll({
+    where: { ativoId: codAtivo },
+    attributes: [
+      ['ativoId', 'codAtivo'],
+      ['qntAtivo', 'qntdeAtivo'],
+      ['preco', 'valor'],
+    ],
+  });
+
+module.exports = { getByClient, getByAsset };
