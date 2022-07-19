@@ -24,3 +24,5 @@ app.get('/asset', investmentsController.getAllAsset);
 
 app.use(Middlewares.errorHandler);
 app.listen(port, () => console.log(`Ouvindo na porta ${port}`));
+
+//s
