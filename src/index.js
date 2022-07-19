@@ -47,3 +47,5 @@ app.post('/sale', Middlewares.authentication, transactionController.newSale);
 
 app.use(Middlewares.errorHandler);
 app.listen(port, () => console.log(`Ouvindo na porta ${port}`));
+
+//s
