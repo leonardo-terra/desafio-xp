@@ -11,6 +11,13 @@ const Ativo = (sequelize, DataTypes) => {
     preco: DataTypes.DECIMAL,
   });
 
+  Ativo.associate = (models) => {
+    Ativo.hasMany(models.Transaction, {
+      foreignKey: 'ativoId',
+      as: 'transactions',
+    });
+  };
+
   return Ativo;
 };
 

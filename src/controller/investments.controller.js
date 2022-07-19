@@ -11,6 +11,10 @@ const getByAsset = async (req, res) => {
   return res.status(200).send(response);
 };
 
+const getAllAsset = async (_req, res) => {
+  const response = await investmentsServices.getAllAsset();
+  if (!response.length) throw new Error('Código de ativo inválido.');
+  return res.status(200).send(response);
+};
 
-
-module.exports = { getByClient, getByAsset };
+module.exports = { getByClient, getByAsset, getAllAsset };

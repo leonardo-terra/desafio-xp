@@ -45,4 +45,21 @@ const getByAsset = async ({ codAtivo }) =>
     ],
   });
 
-module.exports = { getByClient, getByAsset };
+const getAllAsset = async () =>
+  Ativo.findAll({
+    attributes: [
+      ['ativoId', 'codAtivo'],
+      'nome',
+      ['qntAtivo', 'qntdeAtivo'],
+      ['preco', 'valor'],
+    ],
+    include: [
+      {
+        model: Transaction,
+        as: 'transactions',
+        attributes: ['transactionId', 'qntMovimentada', 'userId'],
+      },
+    ],
+  });
+
+module.exports = { getByClient, getByAsset, getAllAsset };
