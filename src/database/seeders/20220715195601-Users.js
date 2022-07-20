@@ -20,8 +20,8 @@ module.exports = {
           updatedAt: Sequelize.literal('CURRENT_TIMESTAMP'),
         },
         {
-          email: 'julia@test.com',
-          password: 'lllJEss6',
+          email: 'teste@teste.com',
+          password: '123456',
           saldo: 423000,
           createdAt: Sequelize.literal('CURRENT_TIMESTAMP'),
           updatedAt: Sequelize.literal('CURRENT_TIMESTAMP'),
