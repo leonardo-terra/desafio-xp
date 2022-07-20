@@ -15,8 +15,8 @@ const updateClientBalance = async ({ codCliente, valor }, { operator }) => {
   const clientResponse = await User.findOne({
     where: { userId: codCliente },
   });
-  if(!clientResponse) throw new Error('Cliente não encontrado');
-  
+  if (!clientResponse) throw new Error('Cliente não encontrado');
+
   const clientBalance = clientResponse.dataValues.saldo;
   const newBalance = balanceOperator(operator, clientBalance, valor);
 
@@ -28,13 +28,4 @@ const updateClientBalance = async ({ codCliente, valor }, { operator }) => {
   };
 };
 
-const getByID = async ({ codCliente }) => {
-  const response = await User.findOne({
-    where: { userId: codCliente },
-    attributes: [['userId', 'codCliente'], 'saldo'],
-  });
-  console.log(codCliente);
-  return response;
-};
-
-module.exports = { updateClientBalance, getByID };
+module.exports = { updateClientBalance };
