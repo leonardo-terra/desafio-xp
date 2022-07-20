@@ -7,7 +7,7 @@ const Middlewares = require('../middlewares');
 
 const router = express.Router();
 
-//Tags: Login, User, Assets
+//Tag: Login
 /**
  * @swagger
  * tags:
@@ -15,21 +15,7 @@ const router = express.Router();
  *  description: Endpoint destinado para autenticação.
  */
 
-/**
- * @swagger
- * tags:
- *  name: Usuários
- *  description: Endpoint destinado para consultas aos dados dos clientes e suas ações.
- */
-
-/**
- * @swagger
- * tags:
- *  name: Transações
- *  description: Endpoint destinado para consultas às transações.
- */
-
-// Schema: Login, LoginResponse
+// Schemas: Login, LoginResponse
 /**
  * @swagger
  *  components:
@@ -66,7 +52,6 @@ const router = express.Router();
  */
 
 //Rotas: Login
-
 /**
  * @swagger
  * /login:
@@ -88,6 +73,25 @@ const router = express.Router();
  *                  type: object
  *                  $ref: '#/components/schemas/LoginResponse'
  */
+router.post('/login', authController.login);
+
+//Tag: Usuários
+/**
+ * @swagger
+ * tags:
+ *  name: Usuários
+ *  description: Endpoint destinado para consultas aos dados dos clientes e suas ações.
+ */
+
+//Schema: Usuário
+/**
+ * @swagger
+ * tags:
+ *  name: Transações
+ *  description: Endpoint destinado para consultas às transações.
+ */
+
+
 
 /**
  * @swagger
@@ -95,6 +99,7 @@ const router = express.Router();
  *    get:
  *      tags: [Usuários]
  *      description: Endpoint para login!
+ * 		
  *    responses:
  *      200:
  *        content:
@@ -125,8 +130,8 @@ const router = express.Router();
  *                $ref: '#/components/schemas/User'
  */
 
-// login
-router.post('/login', authController.login);
+
+
 //get all Transactions
 router.get('/', Middlewares.authentication, transactionController.getAll);
 
