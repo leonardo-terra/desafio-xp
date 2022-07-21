@@ -15,14 +15,14 @@
      "paths": {
       "/login": {
         "post": {
-          "summary": "Rota destinada para autenticação do cliente",
-          "description": "A rota retorna um JWT de autenticação",
+          "description": "Rota destinada para autenticação do cliente",
+          "summary": "Retorna um JWT de autenticação",          
           "tags": ["Login"],
           "requestBody": {
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Login"
+                  "$ref": "#/components/schemas/login"
                 },
                 "examples": {
                   "Login": {
@@ -53,7 +53,7 @@
                 "application/json": {
                   "schema": {
                     "type": "object",
-                    "$ref": "#/components/schemas/loginResponseFail"
+                    "$ref": "#/components/schemas/requestFail"
                   }
                 }
               }
@@ -64,7 +64,7 @@
       "/cliente/{codCliente}": {
         "get": {
           "description": "Busca transações de um cliente",
-          "summary": "Busca transações de um cliente",
+          "summary": "Retorna transações de um cliente",
           "tags": ["Transações"],
           "security": [{"bearerAuth": []}],
           "parameters": [
@@ -94,7 +94,7 @@
                 "application/json": {
                   "schema": {
                     "type": "object",
-                    "$ref": "#/components/schemas/getTransactionFail"
+                    "$ref": "#/components/schemas/requestFail"
                     
                   }
                 }
@@ -106,7 +106,7 @@
       "/todos-investimentos/": {
         "get": {
           "description": "Busca ações disponíveis",
-          "summary": "Lista ações disponíveis para venda",
+          "summary": "Retorna ações disponíveis para venda",
           "tags": ["Investimentos"],
           "security": [{"bearerAuth": []}],
           "responses": {
@@ -124,11 +124,74 @@
             }
           }        
         }
+      },
+      "/clientes/investimentos/": {
+        "get": {
+          "description": "Lista todas ações e suas movimentações",
+          "summary": "Retorna ações disponíveis e transações realizadas",
+          "tags": ["Transações"],
+          "security": [{"bearerAuth": []}],
+          "responses": {
+            "200": {
+              "description": "Ok",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "array",
+                    "$ref": "#/components/schemas/getAssetsInvestments"
+                    
+                  }
+                }
+              }
+            }
+          }        
+        }
+      },
+      "/investimentos/{codAtivo}": {
+        "get": {
+          "description": "Busca informações de uma ação por seu código",
+          "summary": "Retorna informações sobre ações",
+          "tags": ["Investimentos"],
+          "security": [{"bearerAuth": []}],
+          "parameters": [
+            {
+              "name": "codAtivo",
+              "in": "path",
+              "description": "código da ação para busca",
+              "required": true
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Ok",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "array",
+                    "$ref": "#/components/schemas/getAssetsByID"                    
+                  }
+                }
+              }
+            },
+            "500" : {
+              "description": "Cliente não encontrado",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "$ref": "#/components/schemas/requestFail"
+                    
+                  }
+                }
+              }
+            }
+          }
+        }
       }
     },
     "components": {
       "schemas": {
-        "Login": {
+        "login": {
           "type": "object",
           "properties": {
             "email": {
@@ -146,15 +209,7 @@
               "type": "string"
             }
           }
-        },
-        "loginResponseFail":{
-          "type": "object",
-          "properties": {
-            "errorMessage": {
-              "type": "string"
-            }
-          }
-        },
+        },       
         "getTransaction":{
           "type": "array",
           "items": {
@@ -174,7 +229,7 @@
             }
           }
         },
-        "getTransactionFail":{
+        "requestFail":{
           "type": "object",          
             "properties": {
               "message": {
@@ -189,6 +244,67 @@
               "transactionId": {
                 "type": "integer"
               },
+              "codCliente": {
+                "type": "integer"
+              },
+              "qntdeAtivo": {
+                "type": "integer"
+              },
+              "preco": {
+                "type": "number"
+              }, 
+              "codAtivo": {
+                "type": "integer"
+              }            
+                        
+            }
+          }
+        },
+        "getAssetsInvestments":{
+          "type": "array",
+          "items": {
+            "properties": {
+              "codCliente": {
+                "type": "integer"
+              },
+              "nome": {
+                "type": "integer"
+              },
+              "qntdeAtivo": {
+                "type": "integer"
+              },
+              "valor": {
+                "type": "number"
+              }, 
+              "codAtivo": {
+                "type": "object",
+                "$ref":"#/components/schemas/transactionsInfo"
+              }            
+                        
+            }
+          }
+        },
+        "transactionsInfo":{
+          "type": "array",
+          "items": {
+            "properties": {
+              "transactionId": {
+                "type": "integer"
+              },                           
+              "qntMovimentada": {
+                "type": "integer"
+              },
+              "codCliente": {
+                "type": "integer"
+              }            
+                        
+            }
+          }
+        },
+        "getAssetsByID":{
+          "type": "array",
+          "items": {
+            "properties": {              
               "codCliente": {
                 "type": "integer"
               },
