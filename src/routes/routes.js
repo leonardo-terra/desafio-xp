@@ -1,5 +1,5 @@
 const express = require('express');
-const transactionController = require('../controller/transactions.controller');
+const transactionsController = require('../controller/transactions.controller');
 const investmentsController = require('../controller/investments.controller');
 const clientsController = require('../controller/clients.controller');
 const authController = require('../controller/auth.controller');
@@ -91,15 +91,13 @@ router.post('/login', authController.login);
  *  description: Endpoint destinado para consultas às transações.
  */
 
-
-
 /**
  * @swagger
  * /User:
  *    get:
  *      tags: [Usuários]
  *      description: Endpoint para login!
- * 		
+ *
  *    responses:
  *      200:
  *        content:
@@ -130,22 +128,25 @@ router.post('/login', authController.login);
  *                $ref: '#/components/schemas/User'
  */
 
-
-
-//get all Transactions
-router.get('/', Middlewares.authentication, transactionController.getAll);
-
-//get by clientId
-router.get('/client/:codCliente', Middlewares.authentication, investmentsController.getByClient);
-//get by assetId
-router.get('/asset/:codAtivo', investmentsController.getByAsset);
-//get all assets
-router.get('/asset', Middlewares.authentication, investmentsController.getAllAsset);
-//get by clientId its balance
-router.get('/conta/:codCliente', Middlewares.authentication, clientsController.getByID);
-
+router.get('/', Middlewares.authentication, transactionsController.getAll);
+router.get(
+  '/cliente/:codCliente',
+  Middlewares.authentication,
+  transactionsController.getByClientID,
+);
+router.get('/investimentos/:codAtivo', investmentsController.getByAssetById);
+router.get('/investimentos', Middlewares.authentication, investmentsController.getAllAsset);
+router.get(
+  '/conta/:codCliente',
+  Middlewares.authentication,
+  transactionsController.getBalanceByClientID,
+);
 router.post('/conta/:operator', Middlewares.authentication, clientsController.updateClientBalance);
-router.post('/purchase', Middlewares.authentication, transactionController.newPurchase);
-router.post('/sale', Middlewares.authentication, transactionController.newSale);
+router.post(
+  '/investimentos/comprar',
+  Middlewares.authentication,
+  transactionsController.newPurchase,
+);
+router.post('/investimentos/vender', Middlewares.authentication, transactionsController.newSale);
 
 module.exports = router;

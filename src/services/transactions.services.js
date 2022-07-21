@@ -1,5 +1,4 @@
-const { Transaction } = require('../database/models');
-const { Ativo } = require('../database/models');
+const { Transaction, User } = require('../database/models');
 const Utils = require('../utils');
 
 const getAll = async () => {
@@ -15,17 +14,27 @@ const getAll = async () => {
   return result;
 };
 
-const getByID = async ({ codCliente }) => {
+const getByClientID = async ({ codCliente }) => {
+  const response = await Transaction.findAll({
+    where: { userId: codCliente },
+    attributes: [
+      ['userId', 'codCliente'],
+      ['ativoId', 'codAtivo'],
+      ['qntMovimentada', 'qntdeAtivo'],
+      'preco',
+    ],
+  });
+  return response;
+};
+
+const getBalanceByClientID = async ({ codCliente }) => {
   const response = await User.findOne({
     where: { userId: codCliente },
     attributes: [['userId', 'codCliente'], 'saldo'],
   });
-  console.log(codCliente);
   return response;
 };
 
-// Saldo suficiente? > Existe estoque? > { [debita/credita] > transaciona }
-// Compra na visão do cliente.
 const newPurchase = async ({ codCliente, codAtivo, qntdeAtivo }) => {
   const hasEnoughAsset = await Utils.hasEnoughAsset(codAtivo, qntdeAtivo);
   const hasEnoughBalance = await Utils.isBalanceValid(codCliente, qntdeAtivo, codAtivo);
@@ -38,7 +47,6 @@ const newPurchase = async ({ codCliente, codAtivo, qntdeAtivo }) => {
   return await Transaction.create(transactionObj);
 };
 
-// Venda na visão do cliente.
 const newSale = async ({ codCliente, codAtivo, qntdeAtivo }) => {
   const clientAmountOfOneAsset = await Utils.clientAssetQnt(codCliente, codAtivo);
 
@@ -49,7 +57,8 @@ const newSale = async ({ codCliente, codAtivo, qntdeAtivo }) => {
 
 module.exports = {
   getAll,
-  getByID,
+  getBalanceByClientID,
   newPurchase,
   newSale,
+  getByClientID,
 };

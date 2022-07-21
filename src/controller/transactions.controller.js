@@ -7,8 +7,13 @@ const getAll = async (_req, res) => {
   res.status(200).json(orders);
 };
 
-const getByID = async (req, res) => {
-  const response = await clientService.getByID(req.params);
+const getByClientID = async (req, res) => {
+  const response = await transactionsServices.getByClientID(req.params);
+  return res.status(200).send(response);
+};
+
+const getBalanceByClientID = async (req, res) => {
+  const response = await transactionsServices.getBalanceByClientID(req.params);
   if (!response) throw new Error('Cliente não encontrado');
   return res.status(200).send(response);
 };
@@ -30,4 +35,4 @@ const newSale = async (req, res) => {
   return res.status(200).send(response);
 };
 
-module.exports = { getAll, getByID, newPurchase, newSale };
+module.exports = { getAll, getBalanceByClientID, newPurchase, newSale, getByClientID };

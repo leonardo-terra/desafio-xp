@@ -35,8 +35,7 @@ const executeSaleTransaction = async (userId, ativoId, qntdeAtivo) => {
 
   const newBankQnt = transactionInfo.assetQnt + qntdeAtivo;
 
-  const newClientBalance =
-    transactionInfo.clientsBalance + transactionInfo.assetPrice * qntdeAtivo;
+  const newClientBalance = transactionInfo.clientsBalance + transactionInfo.assetPrice * qntdeAtivo;
 
   await User.update(
     {
@@ -56,7 +55,7 @@ const executeSaleTransaction = async (userId, ativoId, qntdeAtivo) => {
     },
   );
 
-  const response = await Transaction.create({
+  await Transaction.create({
     ativoId,
     qntMovimentada: -qntdeAtivo,
     preco: transactionInfo.assetPrice,

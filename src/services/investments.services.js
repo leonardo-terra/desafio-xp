@@ -1,65 +1,25 @@
-const { Transaction, Ativo, sequelize } = require('../database/models');
+const { Transaction, Ativo } = require('../database/models');
 
-const getByClient = async ({ codCliente }) => {
-  const response = await Transaction.findAll({
-    attributes: [
-      'userId',
-      [sequelize.fn('sum', sequelize.col('qntMovimentada')), 'qntMovimentada'],
-      'ativoId',
-    ],
-    where: { userId: codCliente },
-    group: 'ativoId',
-    order: [['ativoId', 'ASC']],
-  });
-  const ativoResponse = await Ativo.findAll({
-    attributes: ['ativoId', 'preco'],
-  });
-
-  const transactionArr = response.map((el) => ({
-    codCliente: el.dataValues.userId,
-    codAtivo: el.dataValues.ativoId || 0,
-    qntdeAtivo: el.dataValues.qntMovimentada || 0,
-  }));
-
-  const priceArr = ativoResponse.map((el) => ({
-    ativoId: el.dataValues.ativoId,
-    preco: el.dataValues.preco,
-  }));
-
-  const mergedArr = transactionArr.map((transaction) => ({
-    ...transaction,
-    price: priceArr.find(({ ativoId }) => transaction.codAtivo === ativoId)
-      .preco,
-  }));
-
-  return mergedArr;
-};
-
-const getByAsset = async ({ codAtivo }) =>
+const getByAssetById = async ({ codAtivo }) =>
   Ativo.findAll({
     where: { ativoId: codAtivo },
-    attributes: [
-      ['ativoId', 'codAtivo'],
-      ['qntAtivo', 'qntdeAtivo'],
-      ['preco', 'valor'],
-    ],
+    attributes: [['ativoId', 'codAtivo'], ['qntAtivo', 'qntdeAtivo'], 'preco'],
   });
 
 const getAllAsset = async () =>
   Ativo.findAll({
-    attributes: [
-      ['ativoId', 'codAtivo'],
-      'nome',
-      ['qntAtivo', 'qntdeAtivo'],
-      ['preco', 'valor'],
-    ],
+    attributes: [['ativoId', 'codAtivo'], 'nome', ['qntAtivo', 'qntdeAtivo'], ['preco', 'valor']],
     include: [
       {
         model: Transaction,
         as: 'transactions',
-        attributes: ['transactionId', 'qntMovimentada', 'userId'],
+        attributes: [
+          'transactionId',
+          ['qntMovimentada', 'qntdeMovimentada'],
+          ['userId', 'codCliente'],
+        ],
       },
     ],
   });
 
-module.exports = { getByClient, getByAsset, getAllAsset };
+module.exports = { getByAssetById, getAllAsset };

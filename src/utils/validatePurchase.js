@@ -42,6 +42,7 @@ const executePurchaseTransaction = async (userId, requiredAmount, ativoId) => {
   const transactionInfo = await transactionValues(userId, ativoId);
 
   const newAssetQnt = transactionInfo.assetQnt - requiredAmount;
+  
   const newClientBalance =
     transactionInfo.clientsBalance -
     requiredAmount * transactionInfo.assetPrice;
