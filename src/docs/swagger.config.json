@@ -1,0 +1,607 @@
+{
+  "definition": {
+    "openapi": "3.0.1",
+    "info": {
+      "title": "desafio-XP",
+      "description": "API rest para desafio XP",
+      "version": "1.0"
+    },
+    "servers": [
+      {
+        "url": "http://localhost:3001",
+        "description": "servidor local"
+      }
+    ],
+     "paths": {
+      "/login": {
+        "post": {
+          "description": "Rota destinada para autenticação do cliente",
+          "summary": "Retorna um JWT de autenticação",          
+          "tags": ["Login"],
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/login"
+                },
+                "examples": {
+                  "Login": {
+                    "value": {
+                      "email": "teste@teste.com",
+                      "password": "123456"
+                    }
+                  }
+                }
+              }             
+            }
+          },
+          "responses": {
+            "202": {
+              "description": "Autorizado",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "$ref": "#/components/schemas/loginResponse"
+                  }
+                }
+              }
+            },
+            "401": {
+              "description": "Não autorizado",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "$ref": "#/components/schemas/requestFail"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/cliente/{codCliente}": {
+        "get": {
+          "description": "Busca transações de um cliente",
+          "summary": "Retorna transações de um cliente",
+          "tags": ["Transações"],
+          "security": [{"bearerAuth": []}],
+          "parameters": [
+            {
+              "name": "codCliente",
+              "in": "path",
+              "description": "código do cliente para busca",
+              "required": true
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Ok",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "array",
+                    "$ref": "#/components/schemas/getTransaction"
+                    
+                  }
+                }
+              }
+            },
+            "500" : {
+              "description": "Cliente não encontrado",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "$ref": "#/components/schemas/requestFail"
+                    
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/todos-investimentos/": {
+        "get": {
+          "description": "Busca ações disponíveis",
+          "summary": "Retorna ações disponíveis para venda",
+          "tags": ["Investimentos"],
+          "security": [{"bearerAuth": []}],
+          "responses": {
+            "200": {
+              "description": "Ok",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "array",
+                    "$ref": "#/components/schemas/getAssets"
+                    
+                  }
+                }
+              }
+            }
+          }        
+        }
+      },
+      "/clientes/investimentos/": {
+        "get": {
+          "description": "Lista todas ações e suas movimentações",
+          "summary": "Retorna ações disponíveis e transações realizadas",
+          "tags": ["Transações"],
+          "security": [{"bearerAuth": []}],
+          "responses": {
+            "200": {
+              "description": "Ok",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "array",
+                    "$ref": "#/components/schemas/getAssetsInvestments"
+                    
+                  }
+                }
+              }
+            }
+          }        
+        }
+      },
+      "/investimentos/{codAtivo}": {
+        "get": {
+          "description": "Busca informações de uma ação por seu código",
+          "summary": "Retorna informações sobre ações",
+          "tags": ["Investimentos"],
+          "security": [{"bearerAuth": []}],
+          "parameters": [
+            {
+              "name": "codAtivo",
+              "in": "path",
+              "description": "código da ação para busca",
+              "required": true
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Ok",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "array",
+                    "$ref": "#/components/schemas/getAssetsByID"                    
+                  }
+                }
+              }
+            },
+            "500" : {
+              "description": "Cliente não encontrado",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "$ref": "#/components/schemas/requestFail"
+                    
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/conta/{codCliente}": {
+        "get": {
+          "description": "Busca saldo de um cliente pelo ID",
+          "summary": "Retorna saldo de um cliente",
+          "tags": ["Clientes"],
+          "security": [{"bearerAuth": []}],
+          "parameters": [
+            {
+              "name": "codCliente",
+              "in": "path",
+              "description": "código do cliente para busca",
+              "required": true
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Ok",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "array",
+                    "$ref": "#/components/schemas/getBalance"
+                    
+                  }
+                }
+              }
+            },
+            "500" : {
+              "description": "Cliente não encontrado",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "$ref": "#/components/schemas/requestFail"
+                    
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/investimentos/comprar": {
+        "post": {
+          "description": "Rota destinada para compra de ações",
+          "summary": "Retorna um objeto com informações da compra",          
+          "tags": ["Transações"],
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/transactionBody"
+                },
+                "examples": {
+                  "Compra": {
+                    "value": {
+                      "codCliente": 3,
+                      "codAtivo": 2,
+                      "qntdeAtivo": 10
+                    }
+                  }
+                }
+              }             
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Compra efetuada",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "$ref": "#/components/schemas/transactionBody"
+                  }
+                }
+              }
+            },
+            "401": {
+              "description": "Não autorizado",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "$ref": "#/components/schemas/requestFail"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/investimentos/vender": {
+        "post": {
+          "description": "Rota destinada para venda de ações",
+          "summary": "Retorna um objeto com informações da venda",          
+          "tags": ["Transações"],
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/transactionBody"
+                },
+                "examples": {
+                  "Compra": {
+                    "value": {
+                      "codCliente": 3,
+                      "codAtivo": 2,
+                      "qntdeAtivo": 10
+                    }
+                  }
+                }
+              }             
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Venda efetuada",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "$ref": "#/components/schemas/transactionBody"
+                  }
+                }
+              }
+            },
+            "401": {
+              "description": "Não autorizado",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "$ref": "#/components/schemas/requestFail"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/conta/deposito": {
+        "post": {
+          "description": "Rota destinada para depositar dinheiro",
+          "summary": "Retorna um objeto com informações do saldo",          
+          "tags": ["Transações"],
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/depositAndWithdraw"
+                },
+                "examples": {
+                  "Compra": {
+                    "value": {
+                      "codCliente": 3,
+                      "valor": 100
+                    }
+                  }
+                }
+              }             
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Depósito efetuado",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "$ref": "#/components/schemas/depositAndWithdraw"
+                  }
+                }
+              }
+            },
+            "401": {
+              "description": "Não autorizado",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "$ref": "#/components/schemas/requestFail"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/conta/saque": {
+        "post": {
+          "description": "Rota destinada para sacar dinheiro",
+          "summary": "Retorna um objeto com informações do saldo",          
+          "tags": ["Transações"],
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/depositAndWithdraw"
+                },
+                "examples": {
+                  "Compra": {
+                    "value": {
+                      "codCliente": 3,
+                      "valor": 100
+                    }
+                  }
+                }
+              }             
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Saque efetuado",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "$ref": "#/components/schemas/depositAndWithdraw"
+                  }
+                }
+              }
+            },
+            "401": {
+              "description": "Não autorizado",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "$ref": "#/components/schemas/requestFail"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "components": {
+      "schemas": {
+        "login": {
+          "type": "object",
+          "properties": {
+            "email": {
+              "type": "string"
+            },
+            "password": {
+              "type": "string"
+            }
+          }
+        },
+        "loginResponse":{
+          "type": "object",
+          "properties": {
+            "token": {
+              "type": "string"
+            }
+          }
+        },
+        "transactionBody": {
+          "type": "object",
+          "properties": {
+            "codCliente": {
+              "type": "integer"
+            },
+            "codAtivo": {
+              "type": "integer"
+            },
+            "qntdeAtivo": {
+              "type": "integer"
+            }
+          }
+        },
+        "depositAndWithdraw": {
+          "type": "object",
+          "properties": {
+            "codCliente": {
+              "type": "integer"
+            },
+            "saldo": {
+              "type": "number"
+            }
+          }
+        },
+        "getTransaction":{
+          "type": "array",
+          "items": {
+            "properties": {
+              "codCliente": {
+                "type": "integer"
+              },
+              "codAtivo": {
+                "type": "integer"
+              },
+              "qntdeAtivo": {
+                "type": "integer"
+              },
+              "preco": {
+                "type": "number"
+              }            
+            }
+          }
+        },
+        "requestFail":{
+          "type": "object",          
+            "properties": {
+              "message": {
+                "type": "string"
+              }            
+          }
+        },
+        "getBalance":{
+          "type": "object",          
+            "properties": {
+              "codCliente": {
+                "type": "integer"},
+                "saldo": {
+                 "type": "number"
+              }            
+          }
+        },
+        "getAssets":{
+          "type": "array",
+          "items": {
+            "properties": {
+              "transactionId": {
+                "type": "integer"
+              },
+              "codCliente": {
+                "type": "integer"
+              },
+              "qntdeAtivo": {
+                "type": "integer"
+              },
+              "preco": {
+                "type": "number"
+              }, 
+              "codAtivo": {
+                "type": "integer"
+              }            
+                        
+            }
+          }
+        },
+        "getAssetsInvestments":{
+          "type": "array",
+          "items": {
+            "properties": {
+              "codCliente": {
+                "type": "integer"
+              },
+              "nome": {
+                "type": "integer"
+              },
+              "qntdeAtivo": {
+                "type": "integer"
+              },
+              "valor": {
+                "type": "number"
+              }, 
+              "codAtivo": {
+                "type": "object",
+                "$ref":"#/components/schemas/transactionsInfo"
+              }            
+                        
+            }
+          }
+        },
+        "transactionsInfo":{
+          "type": "array",
+          "items": {
+            "properties": {
+              "transactionId": {
+                "type": "integer"
+              },                           
+              "qntMovimentada": {
+                "type": "integer"
+              },
+              "codCliente": {
+                "type": "integer"
+              }            
+                        
+            }
+          }
+        },
+        "getAssetsByID":{
+          "type": "array",
+          "items": {
+            "properties": {              
+              "codCliente": {
+                "type": "integer"
+              },
+              "qntdeAtivo": {
+                "type": "integer"
+              },
+              "preco": {
+                "type": "number"
+              }, 
+              "codAtivo": {
+                "type": "integer"
+              }            
+                        
+            }
+          }
+        }
+      },
+      "securitySchemes": {
+        "bearerAuth": {
+          "type": "http",
+          "scheme": "bearer",
+          "bearerFormat": "JWT"
+        }
+      }
+    }    
+  },
+  "apis":[]
+}
+
