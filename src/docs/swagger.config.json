@@ -24,6 +24,38 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/Login"
+                },
+                "examples": {
+                  "Login": {
+                    "value": {
+                      "email": "teste@teste.com",
+                      "password": "123456"
+                    }
+                  }
+                }
+              }             
+            }
+          },
+          "responses": {
+            "202": {
+              "description": "Autorizado",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "$ref": "#/components/schemas/loginResponse"
+                  }
+                }
+              }
+            },
+            "401": {
+              "description": "Não autorizado",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "$ref": "#/components/schemas/loginResponseFail"
+                  }
                 }
               }
             }
@@ -40,6 +72,22 @@
               "type": "string"
             },
             "password": {
+              "type": "string"
+            }
+          }
+        },
+        "loginResponse":{
+          "type": "object",
+          "properties": {
+            "token": {
+              "type": "string"
+            }
+          }
+        },
+        "loginResponseFail":{
+          "type": "object",
+          "properties": {
+            "errorMessage": {
               "type": "string"
             }
           }
