@@ -327,6 +327,102 @@
             }
           }
         }
+      },
+      "/conta/deposito": {
+        "post": {
+          "description": "Rota destinada para depositar dinheiro",
+          "summary": "Retorna um objeto com informações do saldo",          
+          "tags": ["Transações"],
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/depositAndWithdraw"
+                },
+                "examples": {
+                  "Compra": {
+                    "value": {
+                      "codCliente": 3,
+                      "valor": 100
+                    }
+                  }
+                }
+              }             
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Depósito efetuado",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "$ref": "#/components/schemas/depositAndWithdraw"
+                  }
+                }
+              }
+            },
+            "401": {
+              "description": "Não autorizado",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "$ref": "#/components/schemas/requestFail"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/conta/saque": {
+        "post": {
+          "description": "Rota destinada para sacar dinheiro",
+          "summary": "Retorna um objeto com informações do saldo",          
+          "tags": ["Transações"],
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/depositAndWithdraw"
+                },
+                "examples": {
+                  "Compra": {
+                    "value": {
+                      "codCliente": 3,
+                      "valor": 100
+                    }
+                  }
+                }
+              }             
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Saque efetuado",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "$ref": "#/components/schemas/depositAndWithdraw"
+                  }
+                }
+              }
+            },
+            "401": {
+              "description": "Não autorizado",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "$ref": "#/components/schemas/requestFail"
+                  }
+                }
+              }
+            }
+          }
+        }
       }
     },
     "components": {
@@ -361,6 +457,17 @@
             },
             "qntdeAtivo": {
               "type": "integer"
+            }
+          }
+        },
+        "depositAndWithdraw": {
+          "type": "object",
+          "properties": {
+            "codCliente": {
+              "type": "integer"
+            },
+            "saldo": {
+              "type": "number"
             }
           }
         },
