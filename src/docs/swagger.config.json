@@ -66,6 +66,7 @@
           "description": "Busca transações de um cliente",
           "summary": "Busca transações de um cliente",
           "tags": ["Transações"],
+          "security": [{"bearerAuth": []}],
           "parameters": [
             {
               "name": "codCliente",
@@ -82,6 +83,18 @@
                   "schema": {
                     "type": "array",
                     "$ref": "#/components/schemas/getTransaction"
+                    
+                  }
+                }
+              }
+            },
+            "500" : {
+              "description": "Cliente não encontrado",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "$ref": "#/components/schemas/getTransactionFail"
                     
                   }
                 }
@@ -137,6 +150,14 @@
                 "type": "number"
               }            
             }
+          }
+        },
+        "getTransactionFail":{
+          "type": "object",          
+            "properties": {
+              "message": {
+                "type": "string"
+              }            
           }
         }
       },
