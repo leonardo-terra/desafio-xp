@@ -229,6 +229,104 @@
             }
           }
         }
+      },
+      "/investimentos/comprar": {
+        "post": {
+          "description": "Rota destinada para compra de ações",
+          "summary": "Retorna um objeto com informações da compra",          
+          "tags": ["Transações"],
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/transactionBody"
+                },
+                "examples": {
+                  "Compra": {
+                    "value": {
+                      "codCliente": 3,
+                      "codAtivo": 2,
+                      "qntdeAtivo": 10
+                    }
+                  }
+                }
+              }             
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Compra efetuada",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "$ref": "#/components/schemas/transactionBody"
+                  }
+                }
+              }
+            },
+            "401": {
+              "description": "Não autorizado",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "$ref": "#/components/schemas/requestFail"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/investimentos/vender": {
+        "post": {
+          "description": "Rota destinada para venda de ações",
+          "summary": "Retorna um objeto com informações da venda",          
+          "tags": ["Transações"],
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/transactionBody"
+                },
+                "examples": {
+                  "Compra": {
+                    "value": {
+                      "codCliente": 3,
+                      "codAtivo": 2,
+                      "qntdeAtivo": 10
+                    }
+                  }
+                }
+              }             
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Venda efetuada",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "$ref": "#/components/schemas/transactionBody"
+                  }
+                }
+              }
+            },
+            "401": {
+              "description": "Não autorizado",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "$ref": "#/components/schemas/requestFail"
+                  }
+                }
+              }
+            }
+          }
+        }
       }
     },
     "components": {
@@ -251,7 +349,21 @@
               "type": "string"
             }
           }
-        },       
+        },
+        "transactionBody": {
+          "type": "object",
+          "properties": {
+            "codCliente": {
+              "type": "integer"
+            },
+            "codAtivo": {
+              "type": "integer"
+            },
+            "qntdeAtivo": {
+              "type": "integer"
+            }
+          }
+        },
         "getTransaction":{
           "type": "array",
           "items": {
