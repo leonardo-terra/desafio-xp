@@ -7,7 +7,8 @@ const Middlewares = require('../middlewares');
 
 const router = express.Router();
 
-//Tag: Login
+//#region LOGIN -------------------
+// Tag
 /**
  * @swagger
  * tags:
@@ -15,7 +16,7 @@ const router = express.Router();
  *  description: Endpoint destinado para autenticação.
  */
 
-// Schemas: Login, LoginResponse
+// Schemas
 /**
  * @swagger
  *  components:
@@ -51,7 +52,7 @@ const router = express.Router();
  *          token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjoibGVvQHRlc3QuY29tIiwicGFzc3dvcmQiOiIxMjM0NTYiLCJpYXQiOjE2NTgzMzQ3MzMsImV4cCI6MTY1ODMzODMzM30.zernvM38LZH6WYUpxifMPmgAmDOfWOwnTfpfpks3v80
  */
 
-//Rotas: Login
+// Rotas: Login
 /**
  * @swagger
  * /login:
@@ -74,8 +75,37 @@ const router = express.Router();
  *                  $ref: '#/components/schemas/LoginResponse'
  */
 router.post('/login', authController.login);
+//#endregion
 
-//Tag: Usuários
+//#region TRANSACTIONS-------------------
+//Tag
+/**
+ * @swagger
+ * tags:
+ *  name: Transações
+ *  description: Endpoint destinado para requisição de dados sobre transações e ações.
+ */
+// Schema
+/**
+ * @swagger
+ *  components:
+ *   schemas:
+ *      Transactions:
+ *        type: array
+ *        properties:
+ *          codCliente:
+ *            type: integer
+ *          codAtivo:
+ *            type: integer
+ *          qntAtivo:
+ *             type: integer
+ *          preco:
+ *             type: decimal
+ */
+//#endregion
+
+//#region USUÁRIOS -------------------
+//Tag
 /**
  * @swagger
  * tags:
@@ -83,14 +113,9 @@ router.post('/login', authController.login);
  *  description: Endpoint destinado para consultas aos dados dos clientes e suas ações.
  */
 
-//Schema: Usuário
-/**
- * @swagger
- * tags:
- *  name: Transações
- *  description: Endpoint destinado para consultas às transações.
- */
+//Schemas
 
+//Rotas
 /**
  * @swagger
  * /User:
@@ -127,6 +152,7 @@ router.post('/login', authController.login);
  *                            type: array
  *                $ref: '#/components/schemas/User'
  */
+//#endregion
 
 router.get('/', Middlewares.authentication, transactionsController.getAll);
 router.get(
