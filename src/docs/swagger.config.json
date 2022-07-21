@@ -17,8 +17,7 @@
         "post": {
           "summary": "Rota destinada para autenticação do cliente",
           "description": "A rota retorna um JWT de autenticação",
-          "tags": ["Login"
-          ],
+          "tags": ["Login"],
           "requestBody": {
             "content": {
               "application/json": {
@@ -61,6 +60,35 @@
             }
           }
         }
+      },
+      "/cliente/{codCliente}": {
+        "get": {
+          "description": "Busca transações de um cliente",
+          "summary": "Busca transações de um cliente",
+          "tags": ["Transações"],
+          "parameters": [
+            {
+              "name": "codCliente",
+              "in": "path",
+              "description": "código do cliente para busca",
+              "required": true
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Ok",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "array",
+                    "$ref": "#/components/schemas/getTransaction"
+                    
+                  }
+                }
+              }
+            }
+          }
+        }
       }
     },
     "components": {
@@ -89,6 +117,25 @@
           "properties": {
             "errorMessage": {
               "type": "string"
+            }
+          }
+        },
+        "getTransaction":{
+          "type": "array",
+          "items": {
+            "properties": {
+              "codCliente": {
+                "type": "integer"
+              },
+              "codAtivo": {
+                "type": "integer"
+              },
+              "qntdeAtivo": {
+                "type": "integer"
+              },
+              "preco": {
+                "type": "number"
+              }            
             }
           }
         }
