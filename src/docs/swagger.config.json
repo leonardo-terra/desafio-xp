@@ -1,0 +1,52 @@
+{
+  "definition": {
+    "openapi": "3.0.1",
+    "info": {
+      "title": "desafio-XP",
+      "description": "API rest para desafio XP",
+      "version": "1.0"
+    },
+    "servers": [
+      {
+        "url": "http://localhost:3001",
+        "description": "servidor local"
+      }
+    ],
+     "paths": {
+      "/login": {
+        "post": {
+          "summary": "Rota destinada para autenticação do cliente",
+          "description": "A rota retorna um JWT de autenticação",
+          "tags": ["Login"
+          ],
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Login"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "components": {
+      "schemas": {
+        "Login": {
+          "type": "object",
+          "properties": {
+            "email": {
+              "type": "string"
+            },
+            "password": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }    
+  },
+  "apis":[]
+}
+
