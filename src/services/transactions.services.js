@@ -52,7 +52,7 @@ const newPurchase = async ({ codCliente, codAtivo, qntdeAtivo }) => {
 const newSale = async ({ codCliente, codAtivo, qntdeAtivo }) => {
   const clientAmountOfOneAsset = await Utils.clientAssetQnt(codCliente, codAtivo);
 
-  if (clientAmountOfOneAsset < qntdeAtivo) throw new Error('Você não possui ações suficientes');
+  if (clientAmountOfOneAsset < qntdeAtivo) throw new Error('Você não possui ações suficientes para venda');
 
   return await Utils.executeSaleTransaction(codCliente, codAtivo, qntdeAtivo);
 };

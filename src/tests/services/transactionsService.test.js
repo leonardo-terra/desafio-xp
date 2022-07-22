@@ -162,7 +162,7 @@ describe('Realiza compras', () => {
       expect(response).to.have.property('message', 'Saldo insuficiente');
     });
   });
-  describe('quando a quantidade não está disponível para venda', () => {
+  describe('quando a quantidade não está disponível para compra', () => {
     before(() => {
       sinon
         .stub(transactionsService, 'newPurchase')
@@ -191,6 +191,46 @@ describe('Realiza compras', () => {
     });
     const TEST_ID = 1;
     const response = await transactionsService.newPurchase(TEST_ID);
+    expect(response).to.be.an('object');
+    expect(response).to.have.property('codCliente');
+    expect(response).to.have.property('codAtivo');
+    expect(response).to.have.property('qntdeAtivo');
+    expect(response.codCliente).to.be.equal(TEST_ID);
+    expect(response.codAtivo).to.be.equal(2);
+    expect(response.qntdeAtivo).to.be.equal(10);
+  });
+});
+
+describe('Realiza vendas', () => {
+  describe('quando a quantidade não está disponível para venda', () => {
+    before(() => {
+      sinon
+        .stub(transactionsService, 'newSale')
+        .resolves(new Error('Você não possui ações suficientes para venda'));
+    });
+    after(() => {
+      transactionsService.newSale.restore();
+    });
+    it('Retorna uma exceção com a mensagem "Você não possui ações suficientes para venda"', async () => {
+      const TEST_ID = 1;
+      const response = await transactionsService.newSale(TEST_ID);
+      expect(response).to.an('error');
+      expect(response).to.have.property('message', 'Você não possui ações suficientes para venda');
+    });
+  });
+  describe('quando efetuada, retorna os dados da venda', async () => {
+    before(() => {
+      sinon.stub(transactionsService, 'newSale').resolves({
+        codCliente: 3,
+        codAtivo: 2,
+        qtdeAtivo: 10,
+      });
+    });
+    after(() => {
+      transactionsService.newSale.restore();
+    });
+    const TEST_ID = 1;
+    const response = await transactionsService.newSale(TEST_ID);
     expect(response).to.be.an('object');
     expect(response).to.have.property('codCliente');
     expect(response).to.have.property('codAtivo');
