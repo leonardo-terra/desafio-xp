@@ -33,6 +33,7 @@ const getBalanceByClientID = async ({ codCliente }) => {
     where: { userId: codCliente },
     attributes: [['userId', 'codCliente'], 'saldo'],
   });
+  if (!response) throw new Error('Cliente não encontrado');
   return response;
 };
 
@@ -40,7 +41,7 @@ const newPurchase = async ({ codCliente, codAtivo, qntdeAtivo }) => {
   const hasEnoughAsset = await Utils.hasEnoughAsset(codAtivo, qntdeAtivo);
   const hasEnoughBalance = await Utils.isBalanceValid(codCliente, qntdeAtivo, codAtivo);
 
-  if (!hasEnoughAsset) throw new Error('Quantidade requerida indisponível.');
+  if (!hasEnoughAsset) throw new Error('Quantidade requerida indisponível');
   if (!hasEnoughBalance) throw new Error('Saldo insuficiente');
 
   const transactionObj = await Utils.executePurchaseTransaction(codCliente, qntdeAtivo, codAtivo);

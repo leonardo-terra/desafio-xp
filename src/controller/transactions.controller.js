@@ -9,13 +9,12 @@ const getAll = async (_req, res) => {
 
 const getByClientID = async (req, res) => {
   const response = await transactionsServices.getByClientID(req.params);
-  
+
   return res.status(200).send(response);
 };
 
 const getBalanceByClientID = async (req, res) => {
   const response = await transactionsServices.getBalanceByClientID(req.params);
-  if (!response) throw new Error('Cliente não encontrado');
   return res.status(200).send(response);
 };
 
