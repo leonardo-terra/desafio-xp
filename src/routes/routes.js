@@ -10,12 +10,16 @@ const router = express.Router();
 router.post('/login', authController.login);
 router.get('/todos-investimentos/', Middlewares.authentication, transactionsController.getAll);
 router.get(
-  '/cliente/:codCliente',
+  '/clientes/:codCliente',
   Middlewares.authentication,
   transactionsController.getByClientID,
 );
 router.get('/investimentos/:codAtivo', investmentsController.getByAssetById);
-router.get('/clientes/investimentos', Middlewares.authentication, investmentsController.getAllAsset);
+router.get(
+  '/clientes/investimentos',
+  Middlewares.authentication,
+  investmentsController.getAllAsset,
+);
 router.get(
   '/conta/:codCliente',
   Middlewares.authentication,

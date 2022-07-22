@@ -24,6 +24,7 @@ const getByClientID = async ({ codCliente }) => {
       'preco',
     ],
   });
+  if (response.length === 0) throw new Error('Cliente não encontrado');
   return response;
 };
 

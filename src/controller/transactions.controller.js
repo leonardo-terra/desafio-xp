@@ -9,7 +9,7 @@ const getAll = async (_req, res) => {
 
 const getByClientID = async (req, res) => {
   const response = await transactionsServices.getByClientID(req.params);
-  if (response.length === 0) throw new Error('Cliente não encontrado!');
+  
   return res.status(200).send(response);
 };
 
