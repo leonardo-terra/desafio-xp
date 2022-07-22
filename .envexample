@@ -1,0 +1,10 @@
+NODE_ENV=development
+PORT=3001
+
+MYSQL_HOST=localhost
+MYSQL_PORT=3306
+MYSQL_DB_NAME=desafio-xp
+MYSQL_USER=root
+MYSQL_PASSWORD=password
+
+JWT_SECRET=secretJWT
