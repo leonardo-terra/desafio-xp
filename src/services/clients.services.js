@@ -15,6 +15,7 @@ const updateClientBalance = async ({ codCliente, valor }, { operator }) => {
   const clientResponse = await User.findOne({
     where: { userId: codCliente },
   });
+
   if (!clientResponse) throw new Error('Cliente não encontrado');
 
   const clientBalance = clientResponse.dataValues.saldo;

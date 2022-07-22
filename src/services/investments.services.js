@@ -1,10 +1,13 @@
 const { Transaction, Ativo } = require('../database/models');
 
-const getByAssetById = async ({ codAtivo }) =>
-  Ativo.findAll({
+const getByAssetById = async ({ codAtivo }) => {
+  const response = Ativo.findAll({
     where: { ativoId: codAtivo },
     attributes: [['ativoId', 'codAtivo'], ['qntAtivo', 'qntdeAtivo'], 'preco'],
   });
+  if (response.length === 0) throw new Error('Código de ativo inválido');
+  return response;
+};
 
 const getAllAsset = async () =>
   Ativo.findAll({
