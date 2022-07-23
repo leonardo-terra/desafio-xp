@@ -3,18 +3,30 @@ const transactionsController = require('../controller/transactions.controller');
 const investmentsController = require('../controller/investments.controller');
 const clientsController = require('../controller/clients.controller');
 const authController = require('../controller/auth.controller');
-const Middlewares = require('../middlewares');
+const middle = require('../middlewares');
 
 const router = express.Router();
 
+// login
 router.post('/login', authController.login);
-router.get('/transacoes/cliente/:codCliente', Middlewares.authentication, transactionsController.getByClientID);
-router.get('/investimentos/transacoes', Middlewares.authentication, investmentsController.getAllAsset);
-router.post('/transacoes/comprar', Middlewares.authentication, transactionsController.newPurchase);
-router.post('/transacoes/vender', Middlewares.authentication, transactionsController.newSale);
-router.post('/transacoes/:operator', Middlewares.authentication, clientsController.updateClientBalance);
-router.get('/transacoes', Middlewares.authentication, transactionsController.getAll);
+
+//Contrato 1.1
+router.post('/transacoes/comprar', middle.authentication, transactionsController.newPurchase);
+//Contrato 1.2
+router.post('/transacoes/vender', middle.authentication, transactionsController.newSale);
+//Contrato 1.3
+router.get('/transacoes/cliente/:codCliente', middle.authentication, transactionsController.getByClientID);
+//Contrato 1.5 e 1.6
+router.post('/transacoes/:operator', middle.authentication, clientsController.updateClientBalance);
+
+//Contrato 1.4
 router.get('/investimentos/:codAtivo', investmentsController.getByAssetById);
-router.get('/cliente/saldo/:codCliente', Middlewares.authentication, transactionsController.getBalanceByClientID);
+//Contrato 2.0
+router.get('/investimentos/transacoes', middle.authentication, investmentsController.getAllAsset);
+//Contrato 1.7
+router.get('/cliente/saldo/:codCliente', middle.authentication, transactionsController.getBalanceByClientID);
+
+// Extra
+router.get('/transacoes', middle.authentication, transactionsController.getAll);
 
 module.exports = router;
