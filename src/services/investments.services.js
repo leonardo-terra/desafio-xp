@@ -9,7 +9,7 @@ const getByAssetById = async ({ codAtivo }) => {
   return response;
 };
 
-const getAllAsset = async () =>
+const getAllAsset = () =>
   Ativo.findAll({
     attributes: [['ativoId', 'codAtivo'], 'nome', ['qntAtivo', 'qntdeAtivo'], ['preco', 'valor']],
     include: [

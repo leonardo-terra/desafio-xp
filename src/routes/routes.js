@@ -19,10 +19,11 @@ router.get('/transacoes/cliente/:codCliente', middle.authentication, transaction
 //Contrato 1.5 e 1.6
 router.post('/transacoes/:operator', middle.authentication, clientsController.updateClientBalance);
 
-//Contrato 1.4
-router.get('/investimentos/:codAtivo', investmentsController.getByAssetById);
 //Contrato 2.0
 router.get('/investimentos/transacoes', middle.authentication, investmentsController.getAllAsset);
+//Contrato 1.4
+router.get('/investimentos/:codAtivo', investmentsController.getByAssetById);
+
 //Contrato 1.7
 router.get('/cliente/saldo/:codCliente', middle.authentication, transactionsController.getBalanceByClientID);
 
