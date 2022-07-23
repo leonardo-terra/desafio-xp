@@ -4,18 +4,17 @@ const { buyAndSalesSchema } = require('../validations/dataValidationJoi');
 const getAll = async (_req, res) => {
   const orders = await transactionsServices.getAll();
 
-  res.status(200).json(orders);
+  res.status(200).send(orders);
 };
 
 const getByClientID = async (req, res) => {
   const response = await transactionsServices.getByClientID(req.params);
-  if (response.length === 0) throw new Error('Cliente não encontrado!');
+
   return res.status(200).send(response);
 };
 
 const getBalanceByClientID = async (req, res) => {
   const response = await transactionsServices.getBalanceByClientID(req.params);
-  if (!response) throw new Error('Cliente não encontrado');
   return res.status(200).send(response);
 };
 
@@ -27,13 +26,13 @@ const newPurchase = async (req, res) => {
     codAtivo: purchase.ativoId,
     qtdeAtivo: purchase.qntMovimentada,
   };
-  return res.status(200).send(responseObj);
+  return res.status(201).send(responseObj);
 };
 
 const newSale = async (req, res) => {
   await buyAndSalesSchema.validateAsync(req.body);
   const response = await transactionsServices.newSale(req.body);
-  return res.status(200).send(response);
+  return res.status(201).send(response);
 };
 
 module.exports = { getAll, getBalanceByClientID, newPurchase, newSale, getByClientID };
