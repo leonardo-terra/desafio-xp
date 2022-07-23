@@ -4,7 +4,7 @@ const { buyAndSalesSchema } = require('../validations/dataValidationJoi');
 const getAll = async (_req, res) => {
   const orders = await transactionsServices.getAll();
 
-  res.status(200).json(orders);
+  res.status(200).send(orders);
 };
 
 const getByClientID = async (req, res) => {
