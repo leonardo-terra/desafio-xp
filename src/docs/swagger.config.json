@@ -99,6 +99,17 @@
                   }
                 }
               }
+            },
+            "401": {
+              "description": "Não autorizado",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "$ref": "#/components/schemas/requestFail"
+                  }
+                }
+              }
             }
           }
         }
@@ -121,6 +132,17 @@
                   }
                 }
               }
+            },
+            "401": {
+              "description": "Não autorizado",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "$ref": "#/components/schemas/requestFail"
+                  }
+                }
+              }
             }
           }        
         }
@@ -140,6 +162,17 @@
                     "type": "array",
                     "$ref": "#/components/schemas/getAssetsInvestments"
                     
+                  }
+                }
+              }
+            },
+            "401": {
+              "description": "Não autorizado",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "$ref": "#/components/schemas/requestFail"
                   }
                 }
               }
@@ -225,6 +258,17 @@
                   }
                 }
               }
+            },
+            "401": {
+              "description": "Não autorizado",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "$ref": "#/components/schemas/requestFail"
+                  }
+                }
+              }
             }
           }
         }
@@ -275,6 +319,17 @@
                   }
                 }
               }
+            },
+            "400": {
+              "description": "Requisição inválida",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "$ref": "#/components/schemas/requestFail"
+                  }
+                }
+              }
             }
           }
         }
@@ -304,7 +359,7 @@
             }
           },
           "responses": {
-            "200": {
+            "201": {
               "description": "Venda efetuada",
               "content": {
                 "application/json": {
@@ -317,6 +372,17 @@
             },
             "401": {
               "description": "Não autorizado",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "$ref": "#/components/schemas/requestFail"
+                  }
+                }
+              }
+            },
+            "400": {
+              "description": "Requisição inválida",
               "content": {
                 "application/json": {
                   "schema": {
@@ -360,6 +426,17 @@
                   "schema": {
                     "type": "object",
                     "$ref": "#/components/schemas/depositAndWithdraw"
+                  }
+                }
+              }
+            },
+            "400": {
+              "description": "Requisição inválida",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "$ref": "#/components/schemas/requestFail"
                   }
                 }
               }
@@ -409,6 +486,17 @@
                   "schema": {
                     "type": "object",
                     "$ref": "#/components/schemas/depositAndWithdraw"
+                  }
+                }
+              }
+            },
+            "400": {
+              "description": "Requisição inválida",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "$ref": "#/components/schemas/requestFail"
                   }
                 }
               }
