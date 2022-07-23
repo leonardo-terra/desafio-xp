@@ -3,11 +3,11 @@ const { authenticateToken } = require('../utils/JWT');
 const authentication = async (req, res, next) => {
   try {
     let token = req.headers.authorization;
+    if (!token) throw new Error('Token inválido');
     if (token.startsWith('Bearer ')) {
       token = token.substring(7, token.length);
     }
     const payload = await authenticateToken(token);
-    if (!payload) throw Error('Token not found');
     res.locals.payload = payload;
     next();
   } catch (error) {

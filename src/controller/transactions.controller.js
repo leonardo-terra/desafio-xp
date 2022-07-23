@@ -26,13 +26,13 @@ const newPurchase = async (req, res) => {
     codAtivo: purchase.ativoId,
     qtdeAtivo: purchase.qntMovimentada,
   };
-  return res.status(200).send(responseObj);
+  return res.status(201).send(responseObj);
 };
 
 const newSale = async (req, res) => {
   await buyAndSalesSchema.validateAsync(req.body);
   const response = await transactionsServices.newSale(req.body);
-  return res.status(200).send(response);
+  return res.status(201).send(response);
 };
 
 module.exports = { getAll, getBalanceByClientID, newPurchase, newSale, getByClientID };

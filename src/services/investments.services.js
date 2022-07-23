@@ -16,11 +16,7 @@ const getAllAsset = async () =>
       {
         model: Transaction,
         as: 'transactions',
-        attributes: [
-          'transactionId',
-          ['qntMovimentada', 'qntdeMovimentada'],
-          ['userId', 'codCliente'],
-        ],
+        attributes: ['transactionId', ['qntMovimentada', 'qntdeMovimentada'], ['userId', 'codCliente']],
       },
     ],
   });

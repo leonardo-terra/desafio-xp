@@ -61,7 +61,7 @@
           }
         }
       },
-      "/cliente/{codCliente}": {
+      "/transacoes/cliente/{codCliente}": {
         "get": {
           "description": "Busca transações de um cliente",
           "summary": "Retorna transações de um cliente",
@@ -88,7 +88,7 @@
                 }
               }
             },
-            "500" : {
+            "400" : {
               "description": "Cliente não encontrado",
               "content": {
                 "application/json": {
@@ -103,11 +103,11 @@
           }
         }
       },
-      "/todos-investimentos/": {
+      "/transacoes/": {
         "get": {
           "description": "Busca ações disponíveis",
-          "summary": "Retorna ações disponíveis para venda",
-          "tags": ["Investimentos"],
+          "summary": "Retorna todas transações",
+          "tags": ["Transações"],
           "security": [{"bearerAuth": []}],
           "responses": {
             "200": {
@@ -125,11 +125,11 @@
           }        
         }
       },
-      "/clientes/investimentos/": {
+      "/investimentos/transacoes": {
         "get": {
           "description": "Lista todas ações e suas movimentações",
           "summary": "Retorna ações disponíveis e transações realizadas",
-          "tags": ["Transações"],
+          "tags": ["Investimentos"],
           "security": [{"bearerAuth": []}],
           "responses": {
             "200": {
@@ -151,8 +151,7 @@
         "get": {
           "description": "Busca informações de uma ação por seu código",
           "summary": "Retorna informações sobre ações",
-          "tags": ["Investimentos"],
-          "security": [{"bearerAuth": []}],
+          "tags": ["Investimentos"],          
           "parameters": [
             {
               "name": "codAtivo",
@@ -173,7 +172,7 @@
                 }
               }
             },
-            "500" : {
+            "400" : {
               "description": "Cliente não encontrado",
               "content": {
                 "application/json": {
@@ -188,7 +187,7 @@
           }
         }
       },
-      "/conta/{codCliente}": {
+      "/cliente/saldo/{codCliente}": {
         "get": {
           "description": "Busca saldo de um cliente pelo ID",
           "summary": "Retorna saldo de um cliente",
@@ -215,7 +214,7 @@
                 }
               }
             },
-            "500" : {
+            "400" : {
               "description": "Cliente não encontrado",
               "content": {
                 "application/json": {
@@ -230,11 +229,12 @@
           }
         }
       },
-      "/investimentos/comprar": {
+      "/transacoes/comprar": {
         "post": {
           "description": "Rota destinada para compra de ações",
-          "summary": "Retorna um objeto com informações da compra",          
+          "summary": "Realiza compra de ações",          
           "tags": ["Transações"],
+          "security": [{"bearerAuth": []}],
           "requestBody": {
             "content": {
               "application/json": {
@@ -254,7 +254,7 @@
             }
           },
           "responses": {
-            "200": {
+            "201": {
               "description": "Compra efetuada",
               "content": {
                 "application/json": {
@@ -279,11 +279,12 @@
           }
         }
       },
-      "/investimentos/vender": {
+      "/transacoes/vender": {
         "post": {
           "description": "Rota destinada para venda de ações",
-          "summary": "Retorna um objeto com informações da venda",          
+          "summary": "Realiza venda de ações",          
           "tags": ["Transações"],
+          "security": [{"bearerAuth": []}],
           "requestBody": {
             "content": {
               "application/json": {
@@ -328,11 +329,12 @@
           }
         }
       },
-      "/conta/deposito": {
+      "/transacoes/depositar": {
         "post": {
           "description": "Rota destinada para depositar dinheiro",
-          "summary": "Retorna um objeto com informações do saldo",          
+          "summary": "Realiza depósito na conta",          
           "tags": ["Transações"],
+          "security": [{"bearerAuth": []}],
           "requestBody": {
             "content": {
               "application/json": {
@@ -376,11 +378,12 @@
           }
         }
       },
-      "/conta/saque": {
+      "/transacoes/sacar": {
         "post": {
           "description": "Rota destinada para sacar dinheiro",
-          "summary": "Retorna um objeto com informações do saldo",          
+          "summary": "Realiza saque na conta",          
           "tags": ["Transações"],
+          "security": [{"bearerAuth": []}],
           "requestBody": {
             "content": {
               "application/json": {

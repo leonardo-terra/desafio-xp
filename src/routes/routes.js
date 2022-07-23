@@ -8,29 +8,13 @@ const Middlewares = require('../middlewares');
 const router = express.Router();
 
 router.post('/login', authController.login);
-router.get('/todos-investimentos/', Middlewares.authentication, transactionsController.getAll);
-router.get(
-  '/clientes/:codCliente',
-  Middlewares.authentication,
-  transactionsController.getByClientID,
-);
+router.get('/transacoes/cliente/:codCliente', Middlewares.authentication, transactionsController.getByClientID);
+router.get('/investimentos/transacoes', Middlewares.authentication, investmentsController.getAllAsset);
+router.post('/transacoes/comprar', Middlewares.authentication, transactionsController.newPurchase);
+router.post('/transacoes/vender', Middlewares.authentication, transactionsController.newSale);
+router.post('/transacoes/:operator', Middlewares.authentication, clientsController.updateClientBalance);
+router.get('/transacoes', Middlewares.authentication, transactionsController.getAll);
 router.get('/investimentos/:codAtivo', investmentsController.getByAssetById);
-router.get(
-  '/clientes/investimentos',
-  Middlewares.authentication,
-  investmentsController.getAllAsset,
-);
-router.get(
-  '/conta/:codCliente',
-  Middlewares.authentication,
-  transactionsController.getBalanceByClientID,
-);
-router.post('/conta/:operator', Middlewares.authentication, clientsController.updateClientBalance);
-router.post(
-  '/investimentos/comprar',
-  Middlewares.authentication,
-  transactionsController.newPurchase,
-);
-router.post('/investimentos/vender', Middlewares.authentication, transactionsController.newSale);
+router.get('/cliente/saldo/:codCliente', Middlewares.authentication, transactionsController.getBalanceByClientID);
 
 module.exports = router;

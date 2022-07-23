@@ -4,12 +4,11 @@ const jwt = require('jsonwebtoken');
 const JWT_SECRET = process.env.JWT_SECRET || 'secret';
 
 const jwtConfig = {
-  expiresIn: '1h',
+  expiresIn: '3h',
   algorithm: 'HS256',
 };
 
-const generateToken = ({ email, password }) =>
-  jwt.sign({ data: email, password }, JWT_SECRET, jwtConfig);
+const generateToken = ({ email, password }) => jwt.sign({ data: email, password }, JWT_SECRET, jwtConfig);
 
 const authenticateToken = async (token) => {
   if (!token) {

@@ -1,11 +1,11 @@
 const { User } = require('../database/models');
 
 const balanceOperator = (operator, clientBalance, valor) => {
-  if (operator === 'deposito') {
+  if (operator === 'depositar') {
     const newBalance = clientBalance + valor;
     return newBalance;
   }
-  if (operator === 'saque') {
+  if (operator === 'sacar') {
     const newBalance = clientBalance - valor;
     return newBalance;
   }
