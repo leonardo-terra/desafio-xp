@@ -20,6 +20,7 @@ const updateClientBalance = async ({ codCliente, valor }, { operator }) => {
 
   const clientBalance = clientResponse.dataValues.saldo;
   const newBalance = balanceOperator(operator, clientBalance, valor);
+  if ((operator === 'sacar') & (newBalance < 0)) throw new Error('Saldo insuficiente');
 
   await User.update({ saldo: newBalance }, { where: { userID: codCliente } });
 
