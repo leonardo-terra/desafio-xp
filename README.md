@@ -64,7 +64,7 @@ Por fim, para manter a qualidade de código, utilizei conhecimentos adquiridos n
 A manutenibilidade foi garantida pela escrita de testes unitários para todas as funções das rotas previstas nos contratos. A baixa complexidade consegui atingir ao utilizar uma arquitetura em camadas, que define um escopo único para as camadas. E a reusabilidade me foi garantida pelo paradigma funcional.
 
 ## Próximos passos
-Alguns pontos não puderam ser atacados por conta do limite de tempo para o desenvolvimento do projeto. Irei dividir em categorias de prioridade quais passos eu pretendo dar para o melhor funcionamento da API.
+Alguns pontos não puderam ser atacados por conta do limite de tempo para o desenvolvimento do projeto. IIrei dividir em categorias de prioridade quais trabalhos futuros poderiam ser realizados para aprimorar a API:
 
 #### Extremamente necessários 
 
