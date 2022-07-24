@@ -5,7 +5,8 @@
     "express-async-errors": "^3.1.1",
     "joi": "^17.6.0",
     "jsonwebtoken": "^8.5.1",
-    "mysql2": "^2.3.3",    
+    "mysql2": "^2.3.3",
+    "nyc": "^15.1.0",
     "sequelize": "^6.21.3",
     "swagger-jsdoc": "^6.2.1",
     "swagger-ui-express": "^4.5.0"
@@ -24,6 +25,7 @@
   "scripts": {
     "test": "mocha ./src/tests/**/*$NAME*.test.js --exit",
     "dev": "nodemon src/index.js",
+    "test:coverage": "nyc npm test",
     "reset": "npx sequelize db:drop && npx sequelize db:create && npx sequelize db:migrate && npx sequelize db:seed:all"
   },
   "keywords": [],
