@@ -218,4 +218,7 @@ Para obter acesso, você pode criar um novo cliente na rota POST: /cliente.
 
 ## Agradecimentos
 
-Deixo registrado meu profundo e verdadeiro obrigado primeiramente aos meus pais e irmão pelo apoio incondicional ao meu sonho. À minha namorada, pela total compreensão nas horas que eu estive ausente estudando, pelo apoio, carinho e amor que me oferece, e à XP/Trybe pela oportunidade de estudo e desenvolvimento pessoal e profissional. 
+Gostaria de deixar registrado meu profundo e verdadeiro obrigado:
+Primeiramente aos meus pais e irmão pelo apoio incondicional ao meu sonho;
+A minha namorada, pela total compreensão nas horas que eu estive ausente estudando, pelo apoio, carinho e amor que me oferece; 
+A XP/Trybe pela oportunidade de estudo e desenvolvimento pessoal e profissional. 
