@@ -157,5 +157,65 @@ docker-compose up -d
 ~~~
 4. Inicie a linha de comando no container criado
 ~~~bash
-docker exec -it desafio-xp bash
+ docker exec -it desafio-xp bash
 ~~~
+5. No terminal do docker, instale as dependências do projeto
+~~~bash
+npm install
+~~~
+6. Inicie o projeto no container
+~~~bash
+npm start
+~~~
+
+## Variáveis de ambiente
+As variáveis de ambiente do projeto estão setadas no arquivo .*env* . Ao realizar o download do projeto, você verá na pasta raiz do projeto um arquivo *.envexample*
+
+As seguintes variáveis precisam ser configuradas para rodar o projeto localmente:
+
+~~~bash
+NODE_ENV= > ambiente em que a aplicação rodará
+PORT= > porta onde o servidor ira subir a aplicação
+
+MYSQL_HOST= > host em que a aplicação se hospedará
+MYSQL_PORT= > porta de coneção com o banco de dados
+MYSQL_DB_NAME= > nome do banco de dados
+MYSQL_USER= > usuário do mysql
+MYSQL_PASSWORD= > senha do mysql
+
+JWT_SECRET= > senha para autenticação do JWT.
+~~~
+
+Sugestão de configuração
+
+~~~bash
+NODE_ENV=development
+PORT=3001
+
+MYSQL_HOST=localhost
+MYSQL_PORT=3306
+MYSQL_DB_NAME=desafio-xp
+MYSQL_USER=root
+MYSQL_PASSWORD=password
+
+JWT_SECRET=secretJWT
+~~~
+
+## Documentação
+
+Foi utilizada o padrão OpenAPI para documentar as rotas da API. Por intermédio do swagger, todas as rotas foram listadas e podem ser visualizadas [neste link](https://desafio-lt-xp.herokuapp.com/api-docs/).
+Obs: Lembre-se de alterar para o servidor remoto!
+
+Para testar as rotas autenticáveis, é preciso estar logado. 
+Para obter acesso, você pode criar um novo cliente na rota POST: /cliente.
+
+![Documentação swagger](./src/images/swagger.png)
+
+
+## Autor
+
+[Leonardo Terra](https://www.linkedin.com/in/leonardo-terra/) - Estudante de desenvolvedor web full-stack pela Trybe e graduando em Engenharia química na UFRJ.
+
+## Agradecimentos
+
+Deixo registrado meu profundo e verdadeiro obrigado primeiramente aos meus pais e irmão pelo apoio incondicional ao meu sonho. À minha namorada, pela total compreensão nas horas que eu estive ausente estudando, pelo apoio, carinho e amor que me oferece, e à XP/Trybe pela oportunidade de estudo e desenvolvimento pessoal e profissional. 
