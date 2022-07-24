@@ -6,9 +6,7 @@ describe('Cliente deposita ou saca dinheiro da conta', () => {
   describe('cliente deposita ou saca dinheiro na conta', () => {
     describe('caso o cliente nao seja válido', () => {
       before(() => {
-        sinon
-          .stub(clientServices, 'updateClientBalance')
-          .resolves(new Error('Cliente não encontrado'));
+        sinon.stub(clientServices, 'updateClientBalance').resolves(new Error('Cliente não encontrado'));
       });
       after(() => {
         clientServices.updateClientBalance.restore();
@@ -41,6 +39,35 @@ describe('Cliente deposita ou saca dinheiro da conta', () => {
         expect(response.codCliente).to.be.equal(COD_CLIENTE);
         expect(response.saldo).to.be.equal(750);
       });
+    });
+  });
+});
+
+describe('Cria novo cliente', () => {
+  describe('quando o payload informado é invalido', () => {
+    before(() => {
+      sinon.stub(clientServices, 'createNewClient').resolves(new Error('Dados informados inválidos'));
+    });
+    after(() => {
+      clientServices.createNewClient.restore();
+    });
+    it('retorna uma exceção com a mensagem "Dados informados inválidos"', async () => {
+      const requestBody = {};
+      const response = await clientServices.createNewClient(requestBody);
+      expect(response).to.be.an('error');
+      expect(response).to.have.property('message', 'Dados informados inválidos');
+    });
+  });
+  describe('quando a requisição ocorre com sucesso', () => {
+    before(() => {
+      sinon.stub(clientServices, 'createNewClient').resolves();
+    });
+    after(() => {
+      clientServices.createNewClient.restore();
+    });
+    it('nao há retorno', async () => {
+      const response = await clientServices.createNewClient();
+      expect(response).to.be.undefined;
     });
   });
 });
