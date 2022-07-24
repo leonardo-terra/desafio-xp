@@ -21,7 +21,7 @@ O desafio consiste na criação de uma API-RESTful conectada à um Banco de dado
 ## Índice
 ### Stack utilizada
 
-**Desenvolvimento:** Javascript, Node.js, express, Sequelize, JOI, JWT, MySQL, Postgres* e Swagger. 
+**Desenvolvimento:** Javascript, Node.js, express, Sequelize, JOI, JWT, MySQL, Postgres*, Swagger e Docker. 
 
 **Testes:** Mocha, Chai e Sinon.
 
@@ -30,7 +30,7 @@ O desafio consiste na criação de uma API-RESTful conectada à um Banco de dado
 
 ## Arquitetura de Software
 
-Uma ótima definição dada por Martin Fowler para arquitetura de software foi é que *arquitetura é um conhecimento compartilhado por desenvolvedores experientes sobre como organizar um sistema de software.*
+Uma ótima definição dada por Martin Fowler para arquitetura de software é que *arquitetura é um conhecimento compartilhado por desenvolvedores experientes sobre como organizar um sistema de software.*
 
 Para o desenvolvimento e melhor organização da aplicação, o código foi desenvolvido utilizando-se de 3 camadas: **Model, Services e Controllers (MSC).**
 
@@ -47,14 +47,14 @@ Na *controller*, é recebido a requisição do cliente e são feitas as validaç
 
 Para estruturar um banco de dados que suportasse todas as requisições dos contratos, foi desenvolvido um banco de dados com o diagrama entidade-relacionamento acima.
 
-Nele possuímos duas tabelas que possuem um relacionamento do tipo N:N (usuários e ativos), mediados por uma tabela intermediária que guarda as informações sobre as transações.
+Nele existem duas tabelas que possuem um relacionamento do tipo N:N (usuários e ativos), mediados por uma tabela intermediária que guarda as informações sobre as transações.
 
 
 ## Decisões e escolhas
 
 A primeira grande escolha a ser feita ao me deparar com o desafio foi a linguagem a ser utilizada. Para essa decisão, o fator que mais pesou foi minha maior experiência com a linguagem Javascript no desenvolvimento de API's que utilizam uma arquitetura MSC.
 
-No meu entendimento, devido à baixa complexidade do banco de dados, com apenas duas tabelas, me debruçar numa linguagem orientada a objetos como Typescript seria um esforço desnecessário, dado o curto período de tempo para entrega e minha menor experiência nessa linguagem. Dessa forma, optei por seguir com o paradigma funcional do javascript, mantendo uma boa organização de código que, aliados a testes unitários, me garantisse uma linguagem fracamente tipada fosse suficiente para atacar o problema.
+No meu entendimento, devido à baixa complexidade do banco de dados, com apenas duas tabelas, me debruçar numa linguagem orientada a objetos como Typescript seria um esforço desnecessário, dado o curto período de tempo para entrega. Dessa forma, optei por seguir com o paradigma funcional do javascript, mantendo uma boa organização de código que, aliados a testes unitários, me garantisse uma linguagem fracamente tipada fosse suficiente para atacar o problema.
 
 A segunda decisão foi qual seria a estrutura do banco de dados e como eu faria acesso à ele. A fim de minimizar a complexidade de *query* de consulta ao banco de dados e flexibilidade no desenvolvimento, escolhi utilizar o ORM com a biblioteca Sequelize. Essa escolha me permitiu atacar o problema com uma abordagem intermediária entre *code first* e *model first*, onde pude trabalhar com uma espécie de "banco de dados vivo", onde utilizando código javascript para abstrair a complexidade do banco, conseguia avançar com o projeto sem muitas preocupações com a estrutura do banco de dados.
 
@@ -64,7 +64,7 @@ Por fim, para manter a qualidade de código, utilizei conhecimentos adquiridos n
 A manutenibilidade foi garantida pela escrita de testes unitários para todas as funções das rotas previstas nos contratos. A baixa complexidade consegui atingir ao utilizar uma arquitetura em camadas, que define um escopo único para as camadas. E a reusabilidade me foi garantida pelo paradigma funcional.
 
 ## Próximos passos
-Alguns pontos não puderam ser atacados por conta do limite de tempo para o desenvolvimento do projeto. Irei dividir em categorias de prioridade quais passos eu pretendo dar para o melhor funcionamento da API.
+Alguns pontos não puderam ser atacados por conta do limite de tempo para o desenvolvimento do projeto. IIrei dividir em categorias de prioridade quais trabalhos futuros poderiam ser realizados para aprimorar a API:
 
 #### Extremamente necessários 
 
@@ -81,13 +81,18 @@ Alguns pontos não puderam ser atacados por conta do limite de tempo para o dese
 * Refatorar o código utilizando typescript e conceitos de SOLID.
 * Alterar o lançamentos de exceções utilizado por um padrão de notificações que seja menos agressivas ao sistema.**
 
-** Leitura interessantes: [Não lance Exceptions em seu Domínio… Use Notifications!](https://medium.com/tableless/n%C3%A3o-lance-exceptions-em-seu-dom%C3%ADnio-use-notifications-70b31f7148d3), [Notification Pattern – Estão te vendendo um conceito errado](https://gago.io/blog/2019-04-28-notification-pattern/)
+** Leitura interessantes:
+
+Ponto: [Não lance Exceptions em seu Domínio… Use Notifications!](https://medium.com/tableless/n%C3%A3o-lance-exceptions-em-seu-dom%C3%ADnio-use-notifications-70b31f7148d3), 
+
+Contraponto: [Notification Pattern – Estão te vendendo um conceito errado](https://gago.io/blog/2019-04-28-notification-pattern/)
 
 ## Deploy
 
 Foi feito o deploy da aplicação dockerizada no Heroku.
 
-A documentação da aplicação esta no ar no seguinte link: https://desafio-lt-xp.herokuapp.com/api-docs/
+A documentação da aplicação esta no ar no seguinte link: https://desafio-lt-xp.herokuapp.com/api-docs/.
+Obs: Lembre-se de setar o servidor para o remoto, caso esteja configurado como local.
 
 O banco de dados está hospedado no https://supabase.com/
 
@@ -218,4 +223,10 @@ Para obter acesso, você pode criar um novo cliente na rota POST: /cliente.
 
 ## Agradecimentos
 
-Deixo registrado meu profundo e verdadeiro obrigado primeiramente aos meus pais e irmão pelo apoio incondicional ao meu sonho. À minha namorada, pela total compreensão nas horas que eu estive ausente estudando, pelo apoio, carinho e amor que me oferece, e à XP/Trybe pela oportunidade de estudo e desenvolvimento pessoal e profissional. 
+Gostaria de deixar registrado meu profundo e verdadeiro obrigado:
+
+Primeiramente aos meus pais e irmão pelo apoio incondicional ao meu sonho;
+
+A minha namorada, pela total compreensão nas horas que eu estive ausente estudando, pelo apoio, carinho e amor que me oferece; 
+
+A XP/Trybe pela oportunidade de estudo e desenvolvimento pessoal e profissional. 
