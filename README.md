@@ -21,7 +21,7 @@ O desafio consiste na criação de uma API-RESTful conectada à um Banco de dado
 ## Índice
 ### Stack utilizada
 
-**Desenvolvimento:** Javascript, Node.js, express, Sequelize, JOI, JWT, MySQL, Postgres* e Swagger. 
+**Desenvolvimento:** Javascript, Node.js, express, Sequelize, JOI, JWT, MySQL, Postgres*, Swagger e Docker. 
 
 **Testes:** Mocha, Chai e Sinon.
 
