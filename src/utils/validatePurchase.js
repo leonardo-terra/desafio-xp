@@ -3,7 +3,6 @@ const { User } = require('../database/models');
 const Sequelize = require('sequelize');
 
 const config = require('../database/config/config');
-const sequelize = new Sequelize(config.development);
 
 const transactionValues = async (userId, ativoId) => {
   const userResponse = await User.findOne({
