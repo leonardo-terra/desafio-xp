@@ -10,6 +10,10 @@
       {
         "url": "http://localhost:3001",
         "description": "servidor local"
+      },
+      {
+        "url": "https://desafio-lt-xp.herokuapp.com/",
+        "description": "servidor local"
       }
     ],
      "paths": {
