@@ -17,12 +17,7 @@ const getAll = async () => {
 const getByClientID = async ({ codCliente }) => {
   const response = await Transaction.findAll({
     where: { userId: codCliente },
-    attributes: [
-      ['userId', 'codCliente'],
-      ['ativoId', 'codAtivo'],
-      ['qntMovimentada', 'qntdeAtivo'],
-      'preco',
-    ],
+    attributes: [['userId', 'codCliente'], ['ativoId', 'codAtivo'], ['qntMovimentada', 'qntdeAtivo'], 'preco'],
   });
   if (response.length === 0) throw new Error('Cliente não encontrado');
   return response;
