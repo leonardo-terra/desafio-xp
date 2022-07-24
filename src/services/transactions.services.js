@@ -17,13 +17,9 @@ const getAll = async () => {
 const getByClientID = async ({ codCliente }) => {
   const response = await Transaction.findAll({
     where: { userId: codCliente },
-    attributes: [
-      ['userId', 'codCliente'],
-      ['ativoId', 'codAtivo'],
-      ['qntMovimentada', 'qntdeAtivo'],
-      'preco',
-    ],
+    attributes: [['userId', 'codCliente'], ['ativoId', 'codAtivo'], ['qntMovimentada', 'qntdeAtivo'], 'preco'],
   });
+  if (response.length === 0) throw new Error('Cliente não encontrado');
   return response;
 };
 
@@ -32,6 +28,7 @@ const getBalanceByClientID = async ({ codCliente }) => {
     where: { userId: codCliente },
     attributes: [['userId', 'codCliente'], 'saldo'],
   });
+  if (!response) throw new Error('Cliente não encontrado');
   return response;
 };
 
@@ -39,7 +36,7 @@ const newPurchase = async ({ codCliente, codAtivo, qntdeAtivo }) => {
   const hasEnoughAsset = await Utils.hasEnoughAsset(codAtivo, qntdeAtivo);
   const hasEnoughBalance = await Utils.isBalanceValid(codCliente, qntdeAtivo, codAtivo);
 
-  if (!hasEnoughAsset) throw new Error('Quantidade requerida indisponível.');
+  if (!hasEnoughAsset) throw new Error('Quantidade requerida indisponível');
   if (!hasEnoughBalance) throw new Error('Saldo insuficiente');
 
   const transactionObj = await Utils.executePurchaseTransaction(codCliente, qntdeAtivo, codAtivo);
@@ -50,7 +47,7 @@ const newPurchase = async ({ codCliente, codAtivo, qntdeAtivo }) => {
 const newSale = async ({ codCliente, codAtivo, qntdeAtivo }) => {
   const clientAmountOfOneAsset = await Utils.clientAssetQnt(codCliente, codAtivo);
 
-  if (clientAmountOfOneAsset < qntdeAtivo) throw new Error('Você não possui ações suficientes');
+  if (clientAmountOfOneAsset < qntdeAtivo) throw new Error('Você não possui ações suficientes para venda');
 
   return await Utils.executeSaleTransaction(codCliente, codAtivo, qntdeAtivo);
 };

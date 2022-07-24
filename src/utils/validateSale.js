@@ -1,9 +1,8 @@
 const { User, Ativo, Transaction } = require('../database/models');
+const Sequelize = require('sequelize');
 
-// Returna
-// Qnt ativos disponíveis no banco.
-// Saldo do cliente
-// Preço das ações
+const config = require('../database/config/config');
+
 const transactionValues = async (userId, ativoId) => {
   const userResponse = await User.findOne({
     where: { userId },
@@ -37,36 +36,50 @@ const executeSaleTransaction = async (userId, ativoId, qntdeAtivo) => {
 
   const newClientBalance = transactionInfo.clientsBalance + transactionInfo.assetPrice * qntdeAtivo;
 
-  await User.update(
-    {
-      saldo: newClientBalance,
-    },
-    {
-      where: { userId },
-    },
-  );
+  const sequelize = new Sequelize(config.development);
+  const t = await sequelize.transaction();
 
-  await Ativo.update(
-    {
-      qntAtivo: newBankQnt,
-    },
-    {
-      where: { ativoId },
-    },
-  );
+  try {
+    await User.update(
+      {
+        saldo: newClientBalance,
+      },
+      {
+        where: { userId },
+      },
+      { transaction: t },
+    );
 
-  await Transaction.create({
-    ativoId,
-    qntMovimentada: -qntdeAtivo,
-    preco: transactionInfo.assetPrice,
-    userId,
-  });
+    await Ativo.update(
+      {
+        qntAtivo: newBankQnt,
+      },
+      {
+        where: { ativoId },
+      },
+      { transaction: t },
+    );
 
-  return {
-    codCliente: userId,
-    codAtivo: ativoId,
-    qntdeAtivo,
-  };
+    await Transaction.create(
+      {
+        ativoId,
+        qntMovimentada: -qntdeAtivo,
+        preco: transactionInfo.assetPrice,
+        userId,
+      },
+      { transaction: t },
+    );
+    await t.commit();
+
+    return {
+      codCliente: userId,
+      codAtivo: ativoId,
+      qntdeAtivo,
+    };
+  } catch (error) {
+    await t.rollback();
+    throw new Error('Algo deu errado, tente novamente mais tarde.');
+  }
 };
 
 module.exports = { clientAssetQnt, executeSaleTransaction };
