@@ -81,7 +81,11 @@ Alguns pontos não puderam ser atacados por conta do limite de tempo para o dese
 * Refatorar o código utilizando typescript e conceitos de SOLID.
 * Alterar o lançamentos de exceções utilizado por um padrão de notificações que seja menos agressivas ao sistema.**
 
-** Leitura interessantes: [Não lance Exceptions em seu Domínio… Use Notifications!](https://medium.com/tableless/n%C3%A3o-lance-exceptions-em-seu-dom%C3%ADnio-use-notifications-70b31f7148d3), [Notification Pattern – Estão te vendendo um conceito errado](https://gago.io/blog/2019-04-28-notification-pattern/)
+** Leitura interessantes:
+
+Ponto: [Não lance Exceptions em seu Domínio… Use Notifications!](https://medium.com/tableless/n%C3%A3o-lance-exceptions-em-seu-dom%C3%ADnio-use-notifications-70b31f7148d3), 
+
+Contraponto: [Notification Pattern – Estão te vendendo um conceito errado](https://gago.io/blog/2019-04-28-notification-pattern/)
 
 ## Deploy
 
