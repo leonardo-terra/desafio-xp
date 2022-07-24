@@ -47,7 +47,7 @@ Na *controller*, é recebido a requisição do cliente e são feitas as validaç
 
 Para estruturar um banco de dados que suportasse todas as requisições dos contratos, foi desenvolvido um banco de dados com o diagrama entidade-relacionamento acima.
 
-Nele possuímos duas tabelas que possuem um relacionamento do tipo N:N (usuários e ativos), mediados por uma tabela intermediária que guarda as informações sobre as transações.
+Nele existem duas tabelas que possuem um relacionamento do tipo N:N (usuários e ativos), mediados por uma tabela intermediária que guarda as informações sobre as transações.
 
 
 ## Decisões e escolhas
