@@ -30,4 +30,6 @@ router.get('/cliente/saldo/:codCliente', middle.authentication, transactionsCont
 // Extra
 router.get('/transacoes', middle.authentication, transactionsController.getAll);
 
+router.post('/cliente/novo', clientsController.createNewClient);
+
 module.exports = router;

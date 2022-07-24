@@ -1,4 +1,5 @@
 const { User } = require('../database/models');
+const bcrypt = require('bcrypt');
 
 const balanceOperator = (operator, clientBalance, valor) => {
   if (operator === 'depositar') {
@@ -9,6 +10,14 @@ const balanceOperator = (operator, clientBalance, valor) => {
     const newBalance = clientBalance - valor;
     return newBalance;
   }
+};
+
+const isEmailUnique = async (email) => {
+  const response = await User.findOne({
+    where: { email },
+  });
+  if (response === null) return true;
+  return false;
 };
 
 const updateClientBalance = async ({ codCliente, valor }, { operator }) => {
@@ -30,4 +39,13 @@ const updateClientBalance = async ({ codCliente, valor }, { operator }) => {
   };
 };
 
-module.exports = { updateClientBalance };
+const createNewClient = async (userInfo) => {
+  const isUnique = await isEmailUnique(userInfo.email);
+  if (!isUnique) throw new Error('Email já cadastrado.');
+  const salt = bcrypt.genSaltSync(5);
+  password = bcrypt.hashSync(userInfo.password, salt);
+  await User.create(userInfo);
+  return;
+};
+
+module.exports = { updateClientBalance, createNewClient };
