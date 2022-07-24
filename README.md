@@ -30,7 +30,7 @@ O desafio consiste na criação de uma API-RESTful conectada à um Banco de dado
 
 ## Arquitetura de Software
 
-Uma ótima definição dada por Martin Fowler para arquitetura de software foi é que *arquitetura é um conhecimento compartilhado por desenvolvedores experientes sobre como organizar um sistema de software.*
+Uma ótima definição dada por Martin Fowler para arquitetura de software é que *arquitetura é um conhecimento compartilhado por desenvolvedores experientes sobre como organizar um sistema de software.*
 
 Para o desenvolvimento e melhor organização da aplicação, o código foi desenvolvido utilizando-se de 3 camadas: **Model, Services e Controllers (MSC).**
 
