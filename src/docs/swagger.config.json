@@ -13,7 +13,7 @@
       },
       {
         "url": "https://desafio-lt-xp.herokuapp.com/",
-        "description": "servidor local"
+        "description": "servidor remoto"
       }
     ],
      "paths": {
