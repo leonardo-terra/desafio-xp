@@ -12,7 +12,7 @@ const app = express();
 app.use(express.json());
 app.use(cors())
 const swaggerDoc = swaggerJSDOC(swaggerConfig);
-app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerDoc));
+app.use('/', swaggerUI.serve, swaggerUI.setup(swaggerDoc));
 
 const port = process.env.PORT || 3001;
 
