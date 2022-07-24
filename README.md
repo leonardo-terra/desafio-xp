@@ -91,7 +91,8 @@ Contraponto: [Notification Pattern – Estão te vendendo um conceito errado](ht
 
 Foi feito o deploy da aplicação dockerizada no Heroku.
 
-A documentação da aplicação esta no ar no seguinte link: https://desafio-lt-xp.herokuapp.com/api-docs/
+A documentação da aplicação esta no ar no seguinte link: https://desafio-lt-xp.herokuapp.com/api-docs/.
+Obs: Lembre-se de setar o servidor para o remoto, caso esteja configurado como local.
 
 O banco de dados está hospedado no https://supabase.com/
 
