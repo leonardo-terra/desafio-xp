@@ -28,7 +28,7 @@
                   "Login": {
                     "value": {
                       "email": "teste@teste.com",
-                      "password": "123456"
+                      "password": "321123"
                     }
                   }
                 }
@@ -514,6 +514,59 @@
             }
           }
         }
+      },
+      "/cliente/novo": {
+        "post": {
+          "description": "Rota destinada criação de novo cliente",
+          "summary": "Cria novo cliente",          
+          "tags": ["Clientes"],
+          "security": [{"bearerAuth": []}],
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/newClient"
+                },
+                "examples": {
+                  "Novo Usuário": {
+                    "value": {
+                      "email": "novouser@novo.com",
+                      "password": "12342212",
+                      "saldo": 100
+                    }
+                  }
+                }
+              }             
+            }
+          },
+          "responses": {
+            "201": {
+              "description": "Cadastro efetuado"            
+            },
+            "401": {
+              "description": "Não autorizado",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "$ref": "#/components/schemas/requestFail"
+                  }
+                }
+              }
+            },
+            "400": {
+              "description": "Requisição inválida",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "$ref": "#/components/schemas/requestFail"
+                  }
+                }
+              }
+            }
+          }
+        }
       }
     },
     "components": {
@@ -548,6 +601,20 @@
             },
             "qntdeAtivo": {
               "type": "integer"
+            }
+          }
+        },
+        "newClient": {
+          "type": "object",
+          "properties": {
+            "email": {
+              "type": "string"
+            },
+            "password": {
+              "type": "string"
+            },
+            "saldo": {
+              "type": "number"
             }
           }
         },
