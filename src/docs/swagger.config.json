@@ -519,7 +519,7 @@
           }
         }
       },
-      "/cliente/novo": {
+      "/cliente": {
         "post": {
           "description": "Rota destinada criação de novo cliente",
           "summary": "Cria novo cliente",          
